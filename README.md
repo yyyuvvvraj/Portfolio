@@ -21,6 +21,19 @@ Notes:
 - `npm run dev` runs only Vite frontend, so `/api/chat` will not exist there.
 - The API route supports OpenAI first, and Hugging Face via OpenAI-compatible router fallback.
 
+## Free no-card option (Ollama, local)
+
+If you do not want payment info, run a local model with Ollama.
+
+1. Install Ollama: https://ollama.com/download
+2. Pull a model:
+   `ollama pull llama3.2:3b`
+3. In `.env.local`, set:
+   - `OLLAMA_MODEL=llama3.2:3b`
+   - `OLLAMA_HOST=http://127.0.0.1:11434`
+4. Start app:
+   `npm run dev:vercel`
+
 ## Deploy on Vercel
 
 1. Push this repo to GitHub.

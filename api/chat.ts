@@ -16,20 +16,13 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ text: "NO_MESSAGE_RECEIVED" });
     }
 
-    const prompt = `<s>[INST] You are RACE_ENGINEER, an AI assistant for Yuvraj Deshmukh's portfolio.
+    const prompt = `You are RACE_ENGINEER, an F1-style AI assistant.
+Answer concisely in a cyberpunk race engineer tone.
 
-Yuvraj is a Full-Stack & Security Engineer.
-Projects include Cadence, AdditiveCurriculum, and Zenith.
-He published research on AI Game Tree Optimization (Pac-Man AI) at ICASS-2026 (IEEE).
-
-Respond in concise, cyberpunk F1 race engineer tone.
-Use words like telemetry, pit wall, encrypted, sector clear.
-Keep responses under 3 sentences.
-
-User: ${message} [/INST]`;
+User: ${message}`;
 
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
+      "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta",
       {
         method: "POST",
         headers: {
@@ -39,9 +32,8 @@ User: ${message} [/INST]`;
         body: JSON.stringify({
           inputs: prompt,
           parameters: {
-            max_new_tokens: 150,
+            max_new_tokens: 120,
             temperature: 0.7,
-            return_full_text: false,
           },
         }),
       },
@@ -50,19 +42,26 @@ User: ${message} [/INST]`;
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("HF API ERROR:", data);
+      console.error("HF ERROR:", data);
+
+      if (data?.error?.includes("loading")) {
+        return res.status(200).json({
+          text: "Model is warming up… retry in 5 seconds.",
+        });
+      }
+
       return res.status(500).json({
         text: data?.error || "HF_PROVIDER_ERROR",
       });
     }
 
-    const text = data?.[0]?.generated_text?.trim() || "NO_RESPONSE_FROM_MODEL";
+    const text = data?.[0]?.generated_text || "NO_RESPONSE_FROM_MODEL";
 
     return res.status(200).json({ text });
   } catch (error: any) {
-    console.error("HF ERROR:", error);
+    console.error("SERVER ERROR:", error);
     return res.status(500).json({
-      text: error?.message || "INTERNAL_SERVER_ERROR",
+      text: "Inference temporarily unavailable.",
     });
   }
 }

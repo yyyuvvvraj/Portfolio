@@ -1,11 +1,13 @@
+import OpenAI from "openai";
+
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({ text: "API_KEY_MISSING" });
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ text: "OPENAI_KEY_MISSING" });
     }
 
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
@@ -16,41 +18,32 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ text: "NO_MESSAGE_RECEIVED" });
     }
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: `You are RACE_ENGINEER, an AI assistant for Yuvraj Deshmukh's portfolio.
+Respond in a concise, slightly robotic, cyberpunk/F1 engineer persona.
+Use terms like telemetry, encrypted, pit wall, sector clear.
+Keep responses under 3 sentences.`,
         },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [{ text: message }],
-            },
-          ],
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    console.log("FULL GEMINI RESPONSE:", JSON.stringify(data, null, 2));
-
-    if (!data.candidates || data.candidates.length === 0) {
-      return res.status(200).json({
-        text: "MODEL_RETURNED_NO_CANDIDATES",
-      });
-    }
+        { role: "user", content: message },
+      ],
+      max_tokens: 150,
+      temperature: 0.7,
+    });
 
     const text =
-      data.candidates[0]?.content?.parts?.map((p: any) => p.text).join("") ||
-      "EMPTY_MODEL_RESPONSE";
+      completion.choices?.[0]?.message?.content || "NO_RESPONSE_FROM_MODEL";
 
     return res.status(200).json({ text });
   } catch (error) {
-    console.error("SERVER ERROR:", error);
+    console.error("OPENAI ERROR:", error);
     return res.status(500).json({
       text: "INTERNAL_SERVER_ERROR",
     });

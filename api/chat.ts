@@ -1,34 +1,49 @@
-import { GoogleGenAI } from "@google/genai";
-
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { message } = req.body;
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ text: "API_KEY_MISSING" });
+    }
 
-    const ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
-    });
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
-      contents: message,
-      config: {
-        systemInstruction: `You are RACE_ENGINEER, an AI assistant for Yuvraj Deshmukh's portfolio.
-        Respond in concise, slightly robotic F1 engineer tone.
-        Keep responses under 3 sentences.`,
+    const message = body?.message;
+
+    if (!message) {
+      return res.status(400).json({ text: "NO_MESSAGE_RECEIVED" });
+    }
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: message }],
+            },
+          ],
+        }),
       },
-    });
+    );
 
-    res.status(200).json({
-      text: response.text,
-    });
+    const data = await response.json();
+
+    const text =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "NO_RESPONSE_FROM_MODEL";
+
+    return res.status(200).json({ text });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      text: "ERR: CONNECTION_LOST. UNABLE TO REACH PIT WALL.",
+    console.error("SERVER ERROR:", error);
+    return res.status(500).json({
+      text: "INTERNAL_SERVER_ERROR",
     });
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Github, Linkedin, Mail, ChevronDown, Activity, Flag, Wrench, Calendar, Gauge, Terminal as TerminalIcon, ShieldAlert, Lock, Cpu, Binary, Radio, Phone, X, Timer } from "lucide-react";
 import Chatbot from "./Chatbot";
@@ -546,7 +546,7 @@ function RaceEvent({ round, date, role, company, desc, align }: { round: string,
   );
 }
 
-function ProjectRow({ position, title, tech, time, desc, link, badge }: { position: string, title: string, tech: string, time: string, desc: string, link?: string, badge?: React.ReactNode }) {
+function ProjectRow({ position, title, tech, time, desc, link, badge }: { position: string, title: string, tech: string, time: string, desc: string, link?: string, badge?: ReactNode }) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}

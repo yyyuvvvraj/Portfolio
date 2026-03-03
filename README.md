@@ -2,19 +2,34 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Run and deploy
 
-This contains everything you need to run your app locally.
+This is a Vite + React portfolio with a serverless API at `api/chat.ts`.
 
-View your app in AI Studio: https://ai.studio/apps/e42e035f-fa31-4d15-96c1-a7f806f2e222
+## Local development
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
+Prerequisites: Node.js 18+.
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2. Create `.env.local` from `.env.example` and set at least one key:
+   `OPENAI_API_KEY` (recommended) or `HUGGINGFACE_API_KEY`
+3. Run full-stack locally (frontend + `/api/chat`):
+   `npm run dev:vercel`
+
+Notes:
+- `npm run dev` runs only Vite frontend, so `/api/chat` will not exist there.
+- The API route supports OpenAI first, and Hugging Face via OpenAI-compatible router fallback.
+
+## Deploy on Vercel
+
+1. Push this repo to GitHub.
+2. Import into Vercel.
+3. Build settings:
+   - Build command: `npm run build`
+   - Output directory: `dist`
+4. Add environment variables in Vercel project settings:
+   - `OPENAI_API_KEY` (recommended)
+   - Optional: `OPENAI_MODEL` (default `gpt-4o-mini`)
+   - Optional fallback: `HUGGINGFACE_API_KEY`, `HUGGINGFACE_MODEL`
+5. Deploy.

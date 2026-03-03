@@ -41,17 +41,20 @@ export default function Chatbot() {
         body: JSON.stringify({ message: userMsg }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data?.text || `HTTP_${response.status}`);
+      }
 
       setMessages((prev) => [
         ...prev,
         { role: "ai", text: data.text || "NO_DATA_RECEIVED" },
       ]);
     } catch (error) {
-      console.error(error);
+      console.error("CHAT_API_ERROR:", error);
       setMessages((prev) => [
         ...prev,
-        { role: "ai", text: "ERR: CONNECTION_LOST. UNABLE TO REACH PIT WALL." },
+        { role: "ai", text: "ERR: PIT_WALL_LINK_DOWN. CHECK API KEYS OR DEPLOY LOGS." },
       ]);
     } finally {
       setIsLoading(false);

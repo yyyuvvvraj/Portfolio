@@ -1,50 +1,282 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { Github, Linkedin, Mail, ChevronDown, Activity, Flag, Wrench, Calendar, Gauge, Terminal as TerminalIcon, ShieldAlert, Lock, Cpu, Binary, Radio, Phone, X, Timer } from "lucide-react";
 import Chatbot from "./Chatbot";
+import F1CarScene from "./components/F1CarScene";
 
 function Terminal() {
-  const [lines, setLines] = useState<string[]>([]);
-  const [isTyping, setIsTyping] = useState(true);
+  const [history, setHistory] = useState<{ id: number; command: string; output: string | ReactNode; isError?: boolean }[]>([]);
+  const [input, setInput] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [nextId, setNextId] = useState(1);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
+  // Auto-scroll to bottom
   useEffect(() => {
-    const sequence = [
-      "INIT_ECU_SYSTEM --force",
-      "ESTABLISHING SECURE CONNECTION...",
-      "BYPASSING FIREWALL [██████████] 100%",
-      "DECRYPTING DRIVER_PROFILE.DAT...",
-      "ACCESS GRANTED. WELCOME, YUVRAJ."
-    ];
-    
-    let delay = 500;
-    sequence.forEach((line, i) => {
-      setTimeout(() => {
-        setLines(prev => [...prev, line]);
-        if (i === sequence.length - 1) setIsTyping(false);
-      }, delay);
-      delay += Math.random() * 600 + 400;
-    });
-  }, []);
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [history]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (history.length > 0 && historyIndex < history.length - 1) {
+        const newIndex = historyIndex + 1;
+        setHistoryIndex(newIndex);
+        setInput(history[history.length - 1 - newIndex].command);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setInput(history[history.length - 1 - newIndex].command);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput("");
+      }
+    }
+  };
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [history]);
+
+  const handleCommand = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const cmd = input.trim();
+    const args = cmd.split(" ");
+    const baseCmd = args[0].toLowerCase();
+
+    let output: string | ReactNode = "";
+    let isError = false;
+
+    switch (baseCmd) {
+      case "help":
+        output = (
+          <div className="text-gray-300">
+            <div>Available commands:</div>
+            <div className="ml-4 mt-1">
+              <div className="grid grid-cols-2 gap-2 max-w-sm">
+                <span className="text-[var(--color-neon-blue)]">whoami</span><span>Print current user</span>
+                <span className="text-[var(--color-neon-blue)]">ls</span><span>List directory contents</span>
+                <span className="text-[var(--color-neon-blue)]">tree</span><span>List directory tree</span>
+                <span className="text-[var(--color-neon-blue)]">cat</span><span>Read file contents</span>
+                <span className="text-[var(--color-neon-blue)]">ping</span><span>Test network latency</span>
+                <span className="text-[var(--color-neon-blue)]">nmap</span><span>Scan network ports</span>
+                <span className="text-[var(--color-neon-blue)]">clear</span><span>Clear terminal screen</span>
+                <span className="text-[var(--color-neon-blue)]">date</span><span>Print system date</span>
+                <span className="text-[var(--color-neon-blue)]">neofetch</span><span>Display system info</span>
+              </div>
+            </div>
+          </div>
+        );
+        break;
+      case "whoami":
+        output = "yuvraj_deshmukh";
+        break;
+      case "ls":
+        output = (
+          <div className="flex gap-4 text-blue-400">
+            <span>Desktop</span>
+            <span>Documents</span>
+            <span>Downloads</span>
+            <span className="text-green-400 border-none">telemetry_data/</span>
+            <span className="text-green-400 border-none">exploits/</span>
+            <span className="text-white">driver_profile.txt</span>
+            <span className="text-white">config.sys</span>
+          </div>
+        );
+        break;
+      case "tree":
+        output = (
+          <div className="text-blue-400 whitespace-pre text-xs">
+            {`.
+├── Desktop
+├── Documents
+│   ├── research_paper.pdf
+│   └── architecture.drawio
+├── Downloads
+├── telemetry_data
+│   ├── trace.log
+│   └── ecu_dump.bin
+├── exploits
+│   ├── payload.sh
+│   └── bypass.py
+├── driver_profile.txt
+└── config.sys`}
+          </div>
+        );
+        break;
+      case "cat":
+        if (args[1] === "driver_profile.txt") {
+          output = (
+            <div className="text-gray-300">
+              <div className="text-[var(--color-f1-red)] font-bold">--- DRIVER_PROFILE.TXT ---</div>
+              <div>NAME: Yuvraj Deshmukh</div>
+              <div>ROLE: Lead Driver & Security Eng</div>
+              <div>LOC: NIIT University (2023-2027)</div>
+              <div>EXPERTISE: React, Node.js, AppSec, ML</div>
+              <div>STATUS: <span className="text-[#87d23f]">ACTIVE (SECURE)</span></div>
+              <div className="text-[var(--color-f1-red)] font-bold">--------------------------</div>
+            </div>
+          );
+        } else if (args[1]) {
+          output = `cat: ${args[1]}: Permission denied / File not found`;
+          isError = true;
+        } else {
+          output = "cat: missing operand";
+          isError = true;
+        }
+        break;
+      case "clear":
+        setHistory([]);
+        setInput("");
+        return;
+      case "date":
+        output = new Date().toString();
+        break;
+      case "echo":
+        output = args.slice(1).join(" ");
+        break;
+      case "sudo":
+        output = "yuvraj is not in the sudoers file. This incident will be reported.";
+        isError = true;
+        break;
+      case "ping":
+        output = (
+          <div className="text-gray-300">
+            <div>PING f1-telemetry.local (192.168.1.13) 56(84) bytes of data.</div>
+            <div>64 bytes from 192.168.1.13: icmp_seq=1 ttl=64 time=1.23 ms</div>
+            <div>64 bytes from 192.168.1.13: icmp_seq=2 ttl=64 time=0.98 ms</div>
+            <div>64 bytes from 192.168.1.13: icmp_seq=3 ttl=64 time=1.05 ms</div>
+            <div>--- f1-telemetry.local ping statistics ---</div>
+            <div>3 packets transmitted, 3 received, 0% packet loss, time 2003ms</div>
+          </div>
+        );
+        break;
+      case "nmap":
+        output = (
+          <div className="text-[#87d23f]">
+            <div>Starting Nmap 7.94 ( https://nmap.org ) at {new Date().toISOString()}</div>
+            <div>Nmap scan report for target_sec_mainframe (10.0.0.99)</div>
+            <div>Host is up (0.012s latency).</div>
+            <div>Not shown: 996 closed tcp ports (reset)</div>
+            <div className="mt-2 text-gray-300">PORT     STATE SERVICE</div>
+            <div className="text-white">22/tcp   <span className="text-[#87d23f]">open</span>  ssh</div>
+            <div className="text-white">80/tcp   <span className="text-[#87d23f]">open</span>  http</div>
+            <div className="text-white">443/tcp  <span className="text-[#87d23f]">open</span>  https</div>
+            <div className="text-[var(--color-f1-red)] font-bold bg-[var(--color-f1-red)]/10">3306/tcp open  mysql (VULNERABLE)</div>
+            <div className="mt-2">MAC Address: 00:1A:2B:3C:4D:5E (Unknown)</div>
+            <div>Nmap done: 1 IP address (1 host up) scanned in 4.31 seconds</div>
+          </div>
+        );
+        break;
+      case "neofetch":
+        output = (
+          <div className="flex gap-4 items-center">
+            <div className="text-[#E95420] text-xl leading-none">
+              <pre>{`       _
+   ---(_)
+ _/  ---  \\
+(_) |   |
+  \\  --- _/
+     ---(_)`}</pre>
+            </div>
+            <div>
+              <div className="text-[var(--color-neon-blue)] font-bold">yuvraj@ubuntu</div>
+              <div>----------------</div>
+              <div><span className="text-[#E95420]">OS</span>: Ubuntu 24.04 LTS x86_64</div>
+              <div><span className="text-[#E95420]">Host</span>: F1-Telemetry-Engine</div>
+              <div><span className="text-[#E95420]">Kernel</span>: 6.8.0-linux-f1</div>
+              <div><span className="text-[#E95420]">Uptime</span>: 99.9% Reliable</div>
+              <div><span className="text-[#E95420]">Shell</span>: bash 5.2.21</div>
+            </div>
+          </div>
+        );
+        break;
+      default:
+        output = `Command not found: ${baseCmd}. Type 'help' for available commands.`;
+        isError = true;
+    }
+
+    setHistory([...history, { id: nextId, command: cmd, output, isError }]);
+    setNextId(nextId + 1);
+    setInput("");
+  };
 
   return (
-    <div className="font-mono text-xs md:text-sm bg-black/80 border border-[var(--color-f1-red)]/50 p-4 rounded backdrop-blur-md h-56 overflow-y-auto w-full shadow-[0_0_20px_rgba(225,6,0,0.15)] relative cyber-border">
-      <div className="absolute top-0 left-0 w-full h-full scanlines opacity-50 pointer-events-none"></div>
-      <div className="flex gap-2 mb-4 border-b border-[var(--color-f1-red)]/30 pb-2 relative z-10">
-        <div className="w-3 h-3 rounded-full bg-[var(--color-f1-red)] animate-pulse"></div>
-        <div className="w-3 h-3 rounded-full bg-[var(--color-papaya)]"></div>
-        <div className="w-3 h-3 rounded-full bg-[var(--color-neon-blue)]"></div>
-        <span className="text-[var(--color-f1-red)]/70 text-[10px] ml-2 tracking-widest">root@f1-cyber-sec:~</span>
+    <div 
+      className="font-mono text-xs md:text-sm bg-[#300a24] text-white p-4 rounded-xl h-64 overflow-y-auto w-full relative shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-[#5e2750]"
+      onClick={() => inputRef.current?.focus()}
+      ref={containerRef}
+    >
+      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none rounded-xl" style={{ backgroundImage: 'radial-gradient(circle, transparent 20%, #000 120%)' }}></div>
+      
+      {/* Ubuntu Header Bar */}
+      <div className="flex items-center gap-2 mb-4 border-b border-white/10 pb-2 relative z-10 sticky top-0 bg-[#300a24] pt-1">
+        <div className="flex gap-1.5 object-left">
+          <div className="w-3 h-3 rounded-full bg-[#ef6464] hover:bg-[#ff7b7b] cursor-pointer" title="Close"></div>
+          <div className="w-3 h-3 rounded-full bg-[#f1ba4f] hover:bg-[#ffcb62] cursor-pointer" title="Minimize"></div>
+          <div className="w-3 h-3 rounded-full bg-[#73c54a] hover:bg-[#86d95d] cursor-pointer" title="Maximize"></div>
+        </div>
+        <div className="flex-1 text-center text-gray-300 text-xs tracking-wider absolute w-full pointer-events-none select-none">
+          yuvraj@ubuntu: ~
+        </div>
       </div>
-      <div className="relative z-10">
-        {lines.map((line, i) => (
-          <div key={i} className="text-[var(--color-neon-blue)] mb-2 drop-shadow-[0_0_5px_rgba(0,210,190,0.5)]">
-            <span className="text-[var(--color-f1-red)] mr-2">{'>'}</span>
-            {line}
+
+      <div className="relative z-10 space-y-2 pb-2">
+        <div className="text-gray-300 mb-4 whitespace-pre-wrap">
+          Welcome to Ubuntu 24.04.1 LTS (GNU/Linux 6.8.0-f1 x86_64) {`\n`}
+          * System load:  0.03               * Type 'help' to see active commands.{`\n`}
+          * Usage of /:   42.1% of 1.00TB    * Support: https://ubuntu.com/pro
+        </div>
+
+        {history.map((entry) => (
+          <div key={entry.id} className="mb-2">
+            <div className="flex items-center gap-2 text-wrap break-all">
+              <span className="text-[#87d23f] font-bold">yuvraj@ubuntu</span>
+              <span className="text-white">:</span>
+              <span className="text-[#3a80ca] font-bold">~</span>
+              <span className="text-white">$</span>
+              <span className="ml-1 text-gray-100">{entry.command}</span>
+            </div>
+            {entry.output && (
+              <div className={`mt-1 ml-0 ${entry.isError ? 'text-[#ff5555]' : 'text-gray-300'}`}>
+                {entry.output}
+              </div>
+            )}
           </div>
         ))}
-        {isTyping && (
-          <div className="animate-pulse w-2 h-4 bg-[var(--color-f1-red)] inline-block align-middle shadow-[0_0_8px_var(--color-f1-red)]"></div>
-        )}
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[#87d23f] font-bold">yuvraj@ubuntu</span>
+          <span className="text-white">:</span>
+          <span className="text-[#3a80ca] font-bold">~</span>
+          <span className="text-white">$</span>
+          <form onSubmit={handleCommand} className="flex-1 inline-flex items-center">
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              className="bg-transparent border-none outline-none text-gray-100 w-full flex-1"
+              autoFocus
+              spellCheck="false"
+              autoComplete="off"
+            />
+            {isFocused && <span className="w-2 h-4 bg-gray-300 animate-pulse ml-1 inline-block"></span>}
+          </form>
+        </div>
       </div>
     </div>
   );
@@ -56,13 +288,154 @@ function StartingLights() {
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="flex flex-col gap-2">
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[var(--color-f1-red)] f1-light-${i}`} />
+            <div className={`absolute inset-0 rounded-full bg-[#E95420] f1-light-${i}`} />
           </div>
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[var(--color-f1-red)] f1-light-${i}`} />
+            <div className={`absolute inset-0 rounded-full bg-[#E95420] f1-light-${i}`} />
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function InitialBootScreen({ onComplete }: { onComplete: () => void }) {
+  const [lines, setLines] = useState<string[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  }, [lines]);
+
+  useEffect(() => {
+    const bootSequence = [
+      "[    0.000000] Linux version 6.8.0-f1-generic (yuvraj@ubuntu) (gcc (Ubuntu 13.2.0-23ubuntu4) 13.2.0, GNU ld (GNU Binutils for Ubuntu) 2.42)",
+      "[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-6.8.0-f1 root=UUID=1a2b3c4d ro quiet splash",
+      "[    0.143212] secureboot: Secure boot enabled",
+      "[    0.342111] smpboot: CPU0: Intel(R) Core(TM) i9-14900KS (family: 0x6, model: 0xb7, stepping: 0x1)",
+      "[    1.523412] Loading F1 Telemetry Engine modules... [OK]",
+      "[    1.611111] Initialize CyberSec Defensive protocols... [OK]",
+      "[    2.100133] Mount encrypted volumes.................. [OK]",
+      "[    2.422211] [SECURE] Validating user profile: YUVRAJ DESHMUKH",
+      "[    2.833132] [SECURE] Profile validation passed.",
+      "[    3.011244] Starting GUI Interface System...",
+    ];
+
+    let currentStep = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
+    const interval = setInterval(() => {
+      if (currentStep < bootSequence.length) {
+        const line = bootSequence[currentStep];
+        if (line) {
+          setLines(prev => [...prev, line]);
+        }
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        timeoutId = setTimeout(onComplete, 1000); // Wait 1s after finishing
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(interval);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [onComplete]);
+
+  return (
+    <div className="fixed inset-0 bg-black z-[9999] flex flex-col justify-between font-mono text-sm text-gray-300 p-8">
+      <div ref={containerRef} className="overflow-hidden">
+        {lines.map((l, i) => (
+          <div key={i} className={l && l.includes("[OK]") ? "text-[#87d23f]" : (l && l.includes("[SECURE]") ? "text-[#3a80ca]" : "")}>
+            {l}
+          </div>
+        ))}
+      </div>
+      <div className="text-right">
+        <button onClick={onComplete} className="text-[#E95420] hover:text-white underline uppercase text-xs tracking-widest">
+          [SKIP_BOOT_SEQUENCE]
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ThreatMonitor() {
+  const [threats, setThreats] = useState<{ id: number; ip: string; type: string; time: string }[]>([
+    { id: 1, ip: "192.168.1.45", type: "BRUTE_FORCE_SSH", time: new Date(Date.now() - 15000).toLocaleTimeString() },
+    { id: 2, ip: "10.0.0.99", type: "SQL_INJECTION", time: new Date(Date.now() - 85000).toLocaleTimeString() }
+  ]);
+
+  useEffect(() => {
+    const types = ["PORT_SCAN", "XSS_ATTACK", "RATE_LIMIT_EXCEEDED", "UNAUTHORIZED_ACCESS"];
+    const interval = setInterval(() => {
+      const newThreat = {
+        id: Date.now(),
+        ip: `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
+        type: types[Math.floor(Math.random() * types.length)],
+        time: new Date().toLocaleTimeString()
+      };
+      setThreats(prev => [newThreat, ...prev].slice(0, 5));
+    }, 8000); // New threat every 8 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="glass-premium-card p-6 border-l-4 border-[#ff5555] relative overflow-hidden group">
+      <div className="absolute inset-0 scanlines opacity-10 pointer-events-none" />
+      <div className="flex items-center gap-3 mb-4 border-b border-white/10 pb-2">
+        <ShieldAlert className="w-5 h-5 text-[#ff5555] animate-pulse" />
+        <h3 className="font-mono uppercase tracking-widest text-[#ff5555] text-sm">Live Threat feed</h3>
+      </div>
+      <div className="font-mono text-xs space-y-3">
+        {threats.map((t) => (
+          <motion.div 
+            key={t.id}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex justify-between items-start border-l-2 border-[#ff5555]/50 pl-2 bg-[#ff5555]/5 py-1"
+          >
+            <div>
+              <div className="text-white/80">{t.type}</div>
+              <div className="text-white/40">{t.ip}</div>
+            </div>
+            <div className="text-[#ff5555]/60">{t.time}</div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function UbuntuTopBar() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => setTime(new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', month: 'short', day: 'numeric' }));
+    updateTime();
+    const int = setInterval(updateTime, 1000);
+    return () => clearInterval(int);
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-7 bg-black/90 backdrop-blur-md z-50 flex items-center justify-between px-4 text-white font-ubuntu text-13px shadow-md border-b border-white/5">
+      <div className="flex items-center gap-4 h-full">
+        <div className="hover:bg-white/10 h-full px-2 flex items-center cursor-pointer transition-colors rounded-sm">Activities</div>
+      </div>
+      
+      <div className="absolute left-1/2 -translate-x-1/2 hover:bg-white/10 h-full px-3 flex items-center cursor-pointer transition-colors rounded-sm font-bold">
+        {time}
+      </div>
+
+      <div className="flex items-center gap-3 h-full px-2 hover:bg-white/10 cursor-pointer transition-colors rounded-sm">
+        <div className="flex gap-2 opacity-80">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg>
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+          <ChevronDown className="w-4 h-4" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -71,35 +444,23 @@ export default function App() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [bootSequenceActive, setBootSequenceActive] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[var(--color-carbon)] text-white font-sans selection:bg-[var(--color-f1-red)] selection:text-white relative">
+    <div className="min-h-screen bg-[var(--color-carbon)] text-white font-ubuntu selection:bg-[var(--color-ubuntu-orange)] selection:text-white relative pt-7">
+      {bootSequenceActive && <InitialBootScreen onComplete={() => setBootSequenceActive(false)} />}
+      
+      <UbuntuTopBar />
+
       {/* Global Scanlines Overlay */}
       <div className="fixed inset-0 scanlines z-50 pointer-events-none opacity-20 mix-blend-overlay"></div>
 
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-40 bg-[var(--color-carbon)]/90 backdrop-blur-md border-b border-[var(--color-f1-red)]/20">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 f1-skew bg-[var(--color-f1-red)] px-4 py-1 shadow-[0_0_15px_rgba(225,6,0,0.4)]">
-            <span className="font-display text-xl tracking-wider f1-skew-reverse uppercase">Yuvraj Deshmukh</span>
-          </div>
-          <div className="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-widest text-white/70">
-            <div className="flex items-center gap-2 text-[var(--color-neon-blue)] text-xs border border-[var(--color-neon-blue)]/30 px-2 py-1 rounded bg-[var(--color-neon-blue)]/5">
-              <Lock className="w-3 h-3" /> SECURE CONNECTION
-            </div>
-            <a href="#driver" className="hover:text-[var(--color-f1-red)] transition-colors">Driver_Profile</a>
-            <a href="#telemetry" className="hover:text-[var(--color-f1-red)] transition-colors">Telemetry_Data</a>
-            <a href="#calendar" className="hover:text-[var(--color-f1-red)] transition-colors">Op_Logs</a>
-            <a href="#pit-stop" className="hover:text-[var(--color-f1-red)] transition-colors">Secure_Channel</a>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section id="driver" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <F1CarScene />
         <motion.div 
           style={{ y }}
-          className="absolute inset-0 opacity-20 telemetry-grid"
+          className="absolute inset-0 opacity-20 telemetry-grid pointer-events-none"
         />
         <div className="absolute top-0 right-0 w-1/3 h-full checkered-pattern opacity-[0.03] pointer-events-none mix-blend-overlay" />
         <div className="absolute -top-32 right-1/4 w-8 h-[150%] bg-[var(--color-f1-red)] opacity-10 f1-skew-reverse pointer-events-none blur-sm" />
@@ -134,7 +495,7 @@ export default function App() {
                 href="https://github.com/yyyuvvvraj" 
                 target="_blank" 
                 rel="noreferrer"
-                className="f1-skew bg-white text-black px-8 py-4 hover:bg-[var(--color-f1-red)] hover:text-white transition-all duration-300 group text-center cyber-border"
+                className="f1-skew bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 hover:bg-white hover:text-black transition-all duration-300 group text-center shadow-[0_0_20px_rgba(255,255,255,0.1)] rounded-tl-lg rounded-br-lg"
               >
                 <div className="f1-skew-reverse flex items-center justify-center gap-2 font-display uppercase tracking-wider">
                   <Github className="w-5 h-5" />
@@ -193,16 +554,36 @@ export default function App() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            <TyreCard type="RED" color="#E10600" title="Offensive / Frontend" skills={["React", "Next.js", "Tailwind", "Pen Testing"]} desc="Aggressive grip for fast UI and vulnerability exploitation." />
-            <TyreCard type="PURPLE" color="#B026FF" title="Full-Stack / API" skills={["Node.js", "Express", "GraphQL", "AppSec"]} desc="Balanced performance bridging the gap between systems." />
-            <TyreCard type="BLUE" color="#00D2BE" title="Defensive / DevOps" skills={["Docker", "AWS", "Cryptography", "Zero Trust"]} desc="Durable infrastructure and hardened security postures." />
+            <TyreCard type="RED" color="#E95420" title="Offensive / Frontend" skills={["React", "Next.js", "Tailwind", "Pen Testing"]} desc="Aggressive grip for fast UI and vulnerability exploitation." />
+            <TyreCard type="PURPLE" color="#77216F" title="Full-Stack / API" skills={["Node.js", "Express", "GraphQL", "AppSec"]} desc="Balanced performance bridging the gap between systems." />
+            <TyreCard type="BLUE" color="#3a80ca" title="Defensive / DevOps" skills={["Docker", "AWS", "Cryptography", "Zero Trust"]} desc="Durable infrastructure and hardened security postures." />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <MetricCard label="ENCRYPTION" value="256" unit="bit" desc="AES Standard" color="var(--color-neon-blue)" />
-            <MetricCard label="LATENCY" value="12" unit="ms" desc="Network Ping" color="var(--color-f1-red)" />
-            <MetricCard label="UPTIME" value="99.9" unit="%" desc="System Reliability" color="var(--color-papaya)" />
-            <MetricCard label="BREACHES" value="0" unit="" desc="Incidents Detected" color="var(--color-neon-blue)" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <MetricCard label="ENCRYPTION" value="256" unit="bit" desc="AES Standard" color="#3a80ca" />
+            <MetricCard label="LATENCY" value="12" unit="ms" desc="Network Ping" color="#E95420" />
+            <MetricCard label="UPTIME" value="99.9" unit="%" desc="System Reliability" color="#87d23f" />
+            <MetricCard label="BREACHES" value="0" unit="" desc="Incidents Detected" color="#3a80ca" />
+          </div>
+
+          {/* New Threat Monitor underneath metrics */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="col-span-1 lg:col-span-2 glass-premium-card p-6 relative group overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-ubuntu-orange)]/5 blur-3xl pointer-events-none group-hover:bg-[var(--color-ubuntu-orange)]/10 transition-colors" />
+               <h3 className="font-display text-2xl uppercase tracking-wide mb-4">Network Architecture</h3>
+               <p className="font-mono text-sm text-white/50 mb-4 max-w-lg">
+                 All inbound traffic is routed through dual-layered WAFs. Critical system endpoints are isolated in secure DMZs to prevent lateral movement during active exploitation attempts.
+               </p>
+               <div className="flex items-center gap-4">
+                 <div className="flex items-center gap-2 font-mono text-xs bg-white/5 px-3 py-1 border border-white/10 text-white/70">
+                   <div className="w-2 h-2 rounded-full bg-[#87d23f] animate-pulse"></div> NODE_A_SECURE
+                 </div>
+                 <div className="flex items-center gap-2 font-mono text-xs bg-white/5 px-3 py-1 border border-white/10 text-white/70">
+                   <div className="w-2 h-2 rounded-full bg-[#87d23f] animate-pulse"></div> NODE_B_SECURE
+                 </div>
+               </div>
+            </div>
+            <ThreatMonitor />
           </div>
         </div>
       </section>
@@ -399,15 +780,22 @@ export default function App() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-[var(--color-carbon)] border-2 border-[var(--color-f1-red)] max-w-md w-full cyber-border shadow-[0_0_30px_rgba(225,6,0,0.3)] relative overflow-hidden"
+              className="bg-[#300a24] border border-[#5e2750] max-w-md w-full shadow-[0_0_30px_rgba(0,0,0,0.8)] relative rounded-xl overflow-hidden"
             >
-              {/* Checkered Flag Header */}
-              <div className="h-4 w-full checkered-pattern opacity-50" />
+              {/* Ubuntu Checkered Header */}
+              <div className="flex items-center justify-between bg-black/40 border-b border-white/10 p-2">
+                 <div className="text-sm font-ubuntu text-gray-300 ml-2 tracking-wide font-medium">Secure_Comms.exe</div>
+                 <div className="flex gap-1.5 object-right mr-1">
+                   <div className="w-3.5 h-3.5 rounded-full bg-[#ef6464] hover:bg-[#ff7b7b] cursor-pointer flex items-center justify-center text-[8px] text-black">x</div>
+                   <div className="w-3.5 h-3.5 rounded-full bg-[#f1ba4f] hover:bg-[#ffcb62] cursor-pointer"></div>
+                   <div className="w-3.5 h-3.5 rounded-full bg-[#73c54a] hover:bg-[#86d95d] cursor-pointer"></div>
+                 </div>
+              </div>
               
               <div className="p-8">
                 <button 
                   onClick={() => setIsContactModalOpen(false)}
-                  className="absolute top-8 right-6 text-white/50 hover:text-white transition-colors bg-black/50 p-1 rounded"
+                  className="absolute top-12 right-6 text-white/50 hover:text-[#ef6464] transition-colors p-1 rounded"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -472,8 +860,9 @@ export default function App() {
 function TyreCard({ type, color, title, skills, desc }: { type: string, color: string, title: string, skills: string[], desc: string }) {
   return (
     <motion.div 
-      whileHover={{ y: -5 }}
-      className="bg-[var(--color-carbon)] border border-white/10 p-8 relative overflow-hidden group flex flex-col items-center text-center cyber-border"
+      whileHover={{ y: -5, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="glass-premium-card p-8 relative overflow-hidden group flex flex-col items-center text-center"
     >
       <div className="absolute inset-0 checkered-pattern opacity-0 group-hover:opacity-[0.02] transition-opacity duration-500 pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: color }} />
@@ -499,7 +888,7 @@ function TyreCard({ type, color, title, skills, desc }: { type: string, color: s
 
 function MetricCard({ label, value, unit, desc, color = "var(--color-f1-red)" }: { label: string, value: string, unit: string, desc: string, color?: string }) {
   return (
-    <div className="border border-white/10 p-6 bg-[var(--color-carbon)] relative overflow-hidden group hover:border-[var(--color-f1-red)]/30 transition-colors duration-300">
+    <div className="glass-premium-card p-6 relative overflow-hidden group hover:border-[var(--color-f1-red)]/30 transition-colors duration-300">
       <div className="absolute inset-0 checkered-pattern opacity-0 group-hover:opacity-[0.02] transition-opacity duration-500 pointer-events-none" />
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/5 to-transparent pointer-events-none" />
       <div className="flex items-center gap-2 mb-4 text-white/50">
@@ -580,7 +969,7 @@ function ProjectRow({ position, title, tech, time, desc, link, badge }: { positi
             ))}
           </div>
         </div>
-        <div className="font-mono text-sm text-[var(--color-f1-red)] hidden md:flex items-center gap-2 border border-[var(--color-f1-red)]/30 px-3 py-1 bg-[var(--color-f1-red)]/10">
+        <div className="font-mono text-sm text-[var(--color-f1-red)] hidden md:flex items-center gap-2 border border-[var(--color-f1-red)]/30 px-3 py-1 glass-premium rounded-full">
           <Lock className="w-3 h-3" /> {time}
         </div>
       </div>

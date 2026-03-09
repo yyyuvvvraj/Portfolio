@@ -1,0 +1,20 @@
+241:             }, this),
+242:             /* @__PURE__ */ jsxDEV("div", { children: "NAME: Yuvraj Deshmukh" }, void 0, false, {
+243:               fileName: "C:/Users/yuvra/OneDrive - st.niituniversity.in/NU/Portfolio/Portfolio/src/App.tsx",
+244:               lineNumber: 122,
+245:               columnNumber: 15
+246:             }, this),
+247:             /* @__PURE__ */ jsxDEV("div", { children: "ROLE: Lead Driver & Security Eng" }, void 0, false, {
+248:               fileName: "C:/Users/yuvra/OneDrive - st.niituniversity.in/NU/Portfolio/Portfolio/src/App.tsx",
+249:               lineNumber: 123,
+250:               columnNumber: 15
+251:             }, this),
+252:             /* @__PURE__ */ jsxDEV("div", { children: "LOC: NIIT University (2023-2027)" }, void 0, false, {
+253:               fileName: "C:/Users/yuvra/OneDrive - st.niituniversity.in/NU/Portfolio/Portfolio/src/App.tsx",
+254:               lineNumber: 124,
+255:               columnNumber: 15
+256:             }, this),
+257:             /* @__PURE__ */ jsxDEV("div", { children: "EXPERTISE: React, Node.js, AppSec, ML" }, void 0, false, {
+258:               fileName: "C:/Users/yuvra/OneDrive - st.niituniversity.in/NU/Portfolio/Portfolio/src/App.tsx",
+259:               lineNumber: 125,
+260:               columnNumber: 15

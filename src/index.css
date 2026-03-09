@@ -2,20 +2,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Ubuntu", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Anton", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: "Ubuntu Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
   --color-f1-red: #E10600;
-  --color-carbon: #151515;
-  --color-asphalt: #2B2B2B;
+  --color-carbon: #1e111a; /* Darkened aubergine */
+  --color-asphalt: #300a24; /* Ubuntu Aubergine */
   --color-neon-blue: #00D2BE; /* Mercedes */
   --color-papaya: #FF8700; /* McLaren */
   --color-ferrari: #DC0000;
+  --color-ubuntu-orange: #E95420;
 }
 
 body {
   background-color: var(--color-carbon);
+  background-image: radial-gradient(circle at top right, rgba(233, 84, 32, 0.05), transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(48, 10, 36, 0.8), transparent 50%);
   color: #FFFFFF;
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -117,6 +120,24 @@ body {
   background-color: #333;
   background-size: 10px 10px;
   background-position: 0 0, 5px 5px;
+}
+
+/* Glassmorphism premium utilities */
+.glass-premium {
+  background: rgba(21, 21, 21, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glass-premium-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
 }
 
 /* F1 Starting Lights Sequence */

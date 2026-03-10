@@ -1,48 +1,96 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🖥️ YUVRAJ.EXE
 
-# Run and deploy
+```bash
+> booting portfolio system...
+> loading modules...
+> initializing developer profile...
+> access granted ✔
+```
 
-This is a Vite + React portfolio with a serverless API at `api/chat.ts`.
+```
+██╗   ██╗██╗   ██╗██╗   ██╗██████╗  █████╗      ██╗
+╚██╗ ██╔╝██║   ██║██║   ██║██╔══██╗██╔══██╗     ██║
+ ╚████╔╝ ██║   ██║██║   ██║██████╔╝███████║     ██║
+  ╚██╔╝  ██║   ██║╚██╗ ██╔╝██╔══██╗██╔══██║██   ██║
+   ██║   ╚██████╔╝ ╚████╔╝ ██║  ██║██║  ██║╚█████╔╝
+   ╚═╝    ╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚════╝
+```
 
-## Local development
+```
+System: Developer Portfolio
+User: Yuvraj Deshmukh
+Status: Online
+Mode: BUILD • DEBUG • SHIP
+```
 
-Prerequisites: Node.js 18+.
+---
 
-1. Install dependencies:
-   `npm install`
-2. Create `.env.local` from `.env.example` and set at least one key:
-   `OPENAI_API_KEY` (recommended) or `HUGGINGFACE_API_KEY`
-3. Run full-stack locally (frontend + `/api/chat`):
-   `npm run dev:vercel`
+# 🌐 Live System
 
-Notes:
-- `npm run dev` runs only Vite frontend, so `/api/chat` will not exist there.
-- The API route supports OpenAI first, and Hugging Face via OpenAI-compatible router fallback.
+🔗 **Website:**  
+https://yyyuvvvraj.vercel.app  
 
-## Free no-card option (Ollama, local)
+📦 **Source Code:**  
+https://github.com/yyyuvvvraj/portfolio  
 
-If you do not want payment info, run a local model with Ollama.
+---
 
-1. Install Ollama: https://ollama.com/download
-2. Pull a model:
-   `ollama pull llama3.2:3b`
-3. In `.env.local`, set:
-   - `OLLAMA_MODEL=llama3.2:3b`
-   - `OLLAMA_HOST=http://127.0.0.1:11434`
-4. Start app:
-   `npm run dev:vercel`
+# ⚡ System Overview
 
-## Deploy on Vercel
+```bash
+$ whoami
+```
 
-1. Push this repo to GitHub.
-2. Import into Vercel.
-3. Build settings:
-   - Build command: `npm run build`
-   - Output directory: `dist`
-4. Add environment variables in Vercel project settings:
-   - `OPENAI_API_KEY` (recommended)
-   - Optional: `OPENAI_MODEL` (default `gpt-4o-mini`)
-   - Optional fallback: `HUGGINGFACE_API_KEY`, `HUGGINGFACE_MODEL`
-5. Deploy.
+```
+Name: Yuvraj Deshmukh
+Role: Developer / Builder
+Focus: Full Stack • Systems • AI
+Mission: Build things that feel like the future
+```
+
+---
+
+# 🧠 Tech Stack
+
+```bash
+$ ls tech-stack
+```
+
+```
+frontend/
+ ├── HTML
+ ├── CSS
+ ├── JavaScript
+ ├── React
+
+backend/
+ ├── Node.js
+ └── APIs
+
+tools/
+ ├── Git
+ ├── Docker
+ └── Vercel
+```
+
+---
+
+# 🚀 Run Locally
+
+```bash
+git clone https://github.com/yyyuvvvraj/portfolio.git
+cd portfolio
+npm install
+npm run dev
+```
+
+---
+
+# 📡 Contact
+
+GitHub: https://github.com/yyyuvvvraj  
+Portfolio: https://yyyuvvvraj.vercel.app
+
+---
+
+⭐ If you like the project, drop a star.

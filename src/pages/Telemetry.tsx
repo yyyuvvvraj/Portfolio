@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Radio, Activity } from "lucide-react";
+import { Radio, Activity, Flame } from "lucide-react";
 import ThreatMonitor from "../components/ThreatMonitor";
 
 function TyreCard({ type, color, title, skills, desc }: { type: string, color: string, title: string, skills: string[], desc: string }) {
@@ -52,6 +52,30 @@ function MetricCard({ label, value, unit, desc, color = "var(--color-f1-red)" }:
 export default function Telemetry() {
   return (
     <div className="py-16 px-6 max-w-7xl mx-auto">
+
+      {/* RBR Race Data Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8 flex flex-wrap items-center gap-px overflow-hidden border border-[#001F5B]/60"
+      >
+        <div className="bg-[#001F5B] px-4 py-2 flex items-center gap-2 border-r border-[#FFD700]/30">
+          <Flame className="w-4 h-4 text-[#E10600]" />
+          <span className="font-display text-[#FFD700] text-xs uppercase tracking-widest">VER #1</span>
+        </div>
+        {[
+          { label: "LAP RECORD", value: "1:11.097", track: "COTA" },
+          { label: "TOP SPEED", value: "373 km/h", track: "Monza" },
+          { label: "2023 WINS", value: "19/22", track: "Record Season" },
+          { label: "FASTEST LAPS", value: "7", track: "2023 Season" },
+        ].map((d) => (
+          <div key={d.label} className="flex-1 min-w-[130px] bg-black/40 px-4 py-2 border-r border-[#001F5B]/40 last:border-r-0">
+            <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest">{d.label}</div>
+            <div className="font-display text-lg text-[#FFD700] leading-tight">{d.value}</div>
+            <div className="font-mono text-[9px] text-white/40">{d.track}</div>
+          </div>
+        ))}
+      </motion.div>
       <div className="flex items-center gap-4 mb-12">
         <Radio className="w-8 h-8 text-[var(--color-neon-blue)] animate-pulse" />
         <h2 className="font-display text-4xl md:text-5xl uppercase tracking-wide text-white">Telemetry & Threat Detection</h2>
@@ -91,6 +115,33 @@ export default function Telemetry() {
         </div>
         <ThreatMonitor />
       </div>
+
+      {/* RBR Tyre Strategy Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="mt-12 p-4 border border-[#001F5B]/40 bg-[#001F5B]/10"
+      >
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-2 h-2 bg-[#E10600] rounded-full animate-pulse" />
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[#FFD700]/70">Oracle Red Bull Racing — Tyre Strategy Analogy</span>
+        </div>
+        <div className="flex flex-wrap gap-4">
+          {[
+            { compound: "SOFT", color: "#E10600", analogy: "React / Frontend — Fast, high grip, short runs" },
+            { compound: "MEDIUM", color: "#FFD700", analogy: "Full-Stack / API — Balanced, versatile" },
+            { compound: "HARD", color: "#E0E0E0", analogy: "DevOps / Security — Durable, long-run performance" },
+          ].map((t) => (
+            <div key={t.compound} className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center" style={{ borderColor: t.color }}>
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: t.color }} />
+              </div>
+              <span className="font-mono text-[10px] text-white/50">{t.analogy}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,12 +1,38 @@
 import { motion } from "motion/react";
-import { Cpu, Lock, Radio, Phone, Mail, ShieldAlert, Github, Linkedin } from "lucide-react";
+import { Cpu, Lock, Radio, Phone, Mail, ShieldAlert, Github, Linkedin, Flame, Trophy } from "lucide-react";
 
 export default function Contact() {
   return (
     <div className="py-16 px-6 max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
       
       <Cpu className="w-20 h-20 mx-auto mb-8 text-[#E95420] animate-pulse drop-shadow-[0_0_15px_rgba(233,84,32,0.8)]" />
-      <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tight mb-6 glitch-text text-white" data-text="SECURE CHANNEL">SECURE CHANNEL</h2>
+      <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tight mb-4 glitch-text text-white" data-text="SECURE CHANNEL">SECURE CHANNEL</h2>
+
+      {/* RBR Pit Wall Radio Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="flex items-center justify-center gap-3 mb-6"
+      >
+        <div className="flex items-center gap-0 overflow-hidden">
+          <div className="h-[3px] w-8 bg-[#001F5B]" />
+          <div className="h-[3px] w-3 bg-[#E10600]" />
+          <div className="h-[3px] w-2 bg-[#FFD700]" />
+        </div>
+        <div className="f1-skew bg-[#001F5B]/60 border border-[#FFD700]/40 px-4 py-1">
+          <div className="f1-skew-reverse flex items-center gap-2">
+            <Flame className="w-3 h-3 text-[#E10600]" />
+            <span className="font-display text-[#FFD700] text-xs tracking-widest">RBR PIT WALL — COMMS OPEN</span>
+            <div className="w-1.5 h-1.5 bg-[#FFD700] rounded-full animate-pulse" />
+          </div>
+        </div>
+        <div className="flex items-center gap-0 overflow-hidden">
+          <div className="h-[3px] w-2 bg-[#FFD700]" />
+          <div className="h-[3px] w-3 bg-[#E10600]" />
+          <div className="h-[3px] w-8 bg-[#001F5B]" />
+        </div>
+      </motion.div>
       
       <p className="font-mono text-xl mb-12 text-white/70 bg-black/40 px-6 py-3 border border-white/10 cyber-border">
         [!] Connection encrypted. Ready to transmit coordinates for the next stint.
@@ -77,6 +103,25 @@ export default function Contact() {
           <span>GitHub_Access</span>
         </a>
       </div>
+
+      {/* RBR Fan Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="mt-12 flex flex-col items-center gap-3"
+      >
+        <div className="flex items-center gap-2 text-[#FFD700]/40 hover:text-[#FFD700]/80 transition-colors">
+          <Trophy className="w-4 h-4" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Max Verstappen fan since 2018 · Oracle Red Bull Racing · #1</span>
+          <Trophy className="w-4 h-4" />
+        </div>
+        <div className="flex items-center gap-0">
+          <div className="h-[2px] w-12 bg-[#001F5B]/60" />
+          <div className="h-[2px] w-4 bg-[#E10600]/60" />
+          <div className="h-[2px] w-2 bg-[#FFD700]/60" />
+        </div>
+      </motion.div>
 
     </div>
   );

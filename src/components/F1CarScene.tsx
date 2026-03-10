@@ -16,9 +16,13 @@ function SpeedParticles({ count = 2000 }) {
       const x = Math.cos(angle) * radius;
       const y = Math.sin(angle) * radius;
       const speed = 2 + Math.random() * 5; // Very fast
+      const rand = Math.random();
+      let colorHex = '#ffffff'; // Base white/silver
+      if (rand > 0.95) colorHex = '#E10600'; // RBR Red
+      else if (rand > 0.8) colorHex = '#FFC220'; // RBR Yellow / Max Gold
+      else if (rand > 0.4) colorHex = '#06124B'; // RBR Navy Blue
       
-      const isRed = Math.random() > 0.8;
-      const color = isRed ? new THREE.Color('#E10600') : new THREE.Color('#ffffff');
+      const color = new THREE.Color(colorHex);
       
       temp.push({ x, y, z, speed, color });
     }
@@ -60,7 +64,7 @@ function SpeedParticles({ count = 2000 }) {
 
   return (
     <>
-      <pointLight ref={light} color="#E10600" position={[0, 0, 0]} distance={100} intensity={2} />
+      <pointLight ref={light} color="#FF7B00" position={[0, 0, 0]} distance={100} intensity={2} />
       <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
         <boxGeometry args={[1, 1, 1]}>
           <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
@@ -73,9 +77,9 @@ function SpeedParticles({ count = 2000 }) {
 
 export default function F1CarScene() {
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: '#050505' }}>
+    <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: '#020413' }}>
       <Canvas camera={{ position: [0, 0, 0], fov: 75, near: 0.1, far: 1000 }}>
-        <fog attach="fog" args={['#050505', 10, 200]} />
+        <fog attach="fog" args={['#020413', 10, 200]} />
         <SpeedParticles count={3000} />
         <EffectComposer>
           <Bloom luminanceThreshold={0.1} mipmapBlur intensity={2.0} />

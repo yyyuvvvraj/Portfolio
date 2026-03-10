@@ -93,6 +93,27 @@ function MailAppIcon({ className }: { className?: string }) {
   );
 }
 
+function FolderAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 100 100" className={className} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="folderBack" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#dcb37b" />
+          <stop offset="100%" stopColor="#c39d6b" />
+        </linearGradient>
+        <linearGradient id="folderFront" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#eed5a9" />
+          <stop offset="100%" stopColor="#deb87d" />
+        </linearGradient>
+      </defs>
+      <g filter="url(#shadow)">
+        <path d="M 15 25 L 40 25 L 45 35 L 85 35 L 85 80 L 15 80 Z" fill="url(#folderBack)" />
+        <path d="M 15 40 L 45 40 L 50 35 L 85 35 L 85 80 L 15 80 Z" fill="url(#folderFront)" />
+      </g>
+    </svg>
+  );
+}
+
 export default function UbuntuDock() {
   const location = useLocation();
   const { isUnlocked } = useGame();
@@ -101,6 +122,7 @@ export default function UbuntuDock() {
     { path: '/', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-ubuntu_cof-orange-hex.svg', label: 'Home', type: 'image' },
     { path: '/telemetry', IconComponent: SysMonitorAppIcon, label: 'Telemetry (System Monitor)', type: 'component' },
     { path: '/projects', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg', label: 'Projects (Browser)', type: 'image' },
+    { path: '/downloads', IconComponent: FolderAppIcon, label: 'Secure Downloads (Files)', type: 'component' },
     { path: '/logs', IconComponent: TerminalAppIcon, label: 'Operation Logs (Terminal)', type: 'component' },
     { path: '/contact', IconComponent: MailAppIcon, label: 'Secure Channel (Comms)', type: 'component' },
   ];

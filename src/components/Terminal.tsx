@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { audioSystem } from "../utils/audio";
 import { useGame } from "../context/GameContext";
+import ResumePDF from "../assets/Yuvraj_Resume.pdf";
 
 export default function Terminal() {
   const { addScore, unlockRoute, unlockAll, isGameMode } = useGame();
@@ -76,6 +77,7 @@ export default function Terminal() {
                 <span className="text-[var(--color-neon-blue)]">ifconfig</span><span>Configure a network interface</span>
                 <span className="text-[var(--color-neon-blue)]">clear</span><span>Clear terminal screen</span>
                 <span className="text-[var(--color-neon-blue)]">neofetch</span><span>Display system info</span>
+                <span className="text-[var(--color-f1-red)] font-bold">get-resume</span><span className="text-[#87d23f]">Extract secure driver profile (PDF)</span>
               </div>
             </div>
             {isGameMode && (
@@ -413,6 +415,29 @@ date: ${new Date().toUTCString()}
                 <div className="w-3 h-3 bg-white"></div>
               </div>
             </div>
+          </div>
+        );
+        break;
+      case "get-resume":
+        // Trigger the file download
+        const link = document.createElement("a");
+        link.href = ResumePDF;
+        link.download = "Yuvraj_Deshmukh_Resume.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        audioSystem.playSuccessBeep();
+        output = (
+          <div className="text-[#87d23f] border border-[#87d23f]/30 bg-[#87d23f]/10 p-2 my-2 w-fit">
+            <div className="font-bold flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 bg-[#87d23f] rounded-full animate-pulse"></span>
+              [SECURE TRANSFER INITIATED]
+            </div>
+            <div>&gt; Establishing encrypted channel...</div>
+            <div>&gt; Accessing /vault/driver_profile.pdf...</div>
+            <div>&gt; Decrypting payload...</div>
+            <div className="text-white font-bold mt-2">DOWNLOAD COMPLETE.</div>
           </div>
         );
         break;

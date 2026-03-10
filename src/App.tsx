@@ -7,6 +7,7 @@ import Telemetry from "./pages/Telemetry";
 import Projects from "./pages/Projects";
 import Logs from "./pages/Logs";
 import Contact from "./pages/Contact";
+import Downloads from "./pages/Downloads";
 import { GameProvider } from "./context/GameContext";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="projects" element={<Projects />} />
               <Route path="logs" element={<Logs />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="downloads" element={<Downloads />} />
             </Route>
           </Routes>
         </Router>

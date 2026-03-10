@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { Github, Linkedin, ShieldAlert, Flame } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Github, Linkedin, ShieldAlert, Flame, Download } from "lucide-react";
 import Terminal from "../components/Terminal";
 import F1CarScene from "../components/F1CarScene";
 
@@ -110,6 +111,15 @@ export default function Home() {
                   <span>LinkedIn_Node</span>
                 </div>
               </a>
+              <Link 
+                to="/downloads"
+                className="f1-skew border border-[#87d23f]/50 bg-[#87d23f]/10 px-8 py-4 hover:bg-[#87d23f] hover:text-black transition-all duration-300 text-center text-[#87d23f] shadow-[0_0_15px_rgba(135,210,63,0.15)] rounded-tr-lg rounded-bl-lg group"
+              >
+                <div className="f1-skew-reverse flex items-center justify-center gap-2 font-display uppercase tracking-wider group-hover:text-black">
+                  <Download className="w-5 h-5" />
+                  <span>Extract_Resume</span>
+                </div>
+              </Link>
             </div>
           </motion.div>
           

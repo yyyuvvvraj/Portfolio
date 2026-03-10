@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import { ChevronDown, Volume2, VolumeX } from 'lucide-react';
 import UbuntuDock from './UbuntuDock';
@@ -9,7 +9,19 @@ import { useGame } from '../context/GameContext';
 function UbuntuTopBar() {
   const [time, setTime] = useState("");
   const [isMuted, setIsMuted] = useState(true);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
   const { score, isGameMode } = useGame();
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+        setIsPanelOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -22,9 +34,13 @@ function UbuntuTopBar() {
     return () => clearInterval(int);
   }, []);
 
-  const toggleVolume = () => {
+  const toggleVolume = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     audioSystem.toggleMute();
     setIsMuted(audioSystem.isMuted);
+    if (!audioSystem.isMuted) {
+      setTimeout(() => audioSystem.playSuccessBeep(), 50);
+    }
   };
 
   return (
@@ -43,15 +59,67 @@ function UbuntuTopBar() {
         {time}
       </div>
 
-      <div className="flex items-center gap-3 h-full px-2 hover:bg-white/10 cursor-pointer transition-colors rounded-sm" onClick={toggleVolume}>
-        <div className="flex items-center gap-3 opacity-80">
-          <div className="hover:text-[#E95420] transition-colors" title="Toggle System Sound">
+      <div 
+        ref={panelRef}
+        className={`relative flex items-center justify-center h-full px-2 cursor-pointer transition-colors rounded-sm ml-auto mr-2 ${isPanelOpen ? 'bg-white/10' : 'hover:bg-white/10'}`} 
+        onClick={() => setIsPanelOpen(!isPanelOpen)}
+      >
+        <div className="flex items-center gap-3 opacity-80 pl-2 pr-1">
+          <div className="hover:text-[#E95420] transition-colors" title="Toggle System Sound" onClick={(e) => { e.stopPropagation(); toggleVolume(e); }}>
             {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#87d23f]" />}
           </div>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
           <ChevronDown className="w-4 h-4" />
         </div>
+
+        {/* Dropdown Menu */}
+        {isPanelOpen && (
+          <div className="absolute top-full mt-1 right-0 w-80 bg-[#1e1e1ede] backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/10 p-4 text-white font-ubuntu cursor-default flex flex-col gap-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-4">
+               <button onClick={toggleVolume} className={`p-2 rounded-full transition-colors ${!isMuted ? 'bg-[#E95420] text-white hover:bg-[#E95420]/80' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
+                 {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+               </button>
+               <div className="flex-1 h-1.5 bg-black/50 rounded-full overflow-hidden relative">
+                 <div className={`absolute left-0 top-0 h-full transition-all duration-300 ${!isMuted ? 'w-3/4 bg-[#E95420]' : 'w-0 bg-transparent'}`} />
+               </div>
+            </div>
+
+            <div className="h-[1px] w-full bg-white/10" />
+
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl flex items-center justify-between cursor-pointer">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-[#E95420] rounded-full"><svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg></div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm">Wi-Fi</span>
+                    <span className="text-xs text-white/50">Yuvraj_5G</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl flex items-center justify-between cursor-pointer">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-white/10 rounded-full"><svg className="w-4 h-4 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg></div>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm">82%</span>
+                    <span className="text-xs text-white/50">Discharging</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-[1px] w-full bg-white/10" />
+            
+            <div className="flex justify-between items-center px-1">
+               <span className="text-xs text-white/40">Secure Node Online</span>
+               <div className="flex items-center gap-2">
+                 <div className="w-2 h-2 rounded-full bg-[#87d23f] animate-pulse"></div>
+                 <span className="text-xs font-mono text-[#87d23f]">CONNECTED</span>
+               </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

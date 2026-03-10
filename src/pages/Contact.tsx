@@ -5,7 +5,7 @@ export default function Contact() {
   return (
     <div className="py-16 px-6 max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center">
       
-      <Cpu className="w-20 h-20 mx-auto mb-8 text-[#E95420] animate-pulse drop-shadow-[0_0_15px_rgba(233,84,32,0.8)]" />
+      <Cpu className="w-20 h-20 mx-auto mb-8 text-[#E10600] animate-pulse drop-shadow-[0_0_15px_rgba(225, 6, 0,0.8)]" />
       <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tight mb-4 glitch-text text-white" data-text="SECURE CHANNEL">SECURE CHANNEL</h2>
 
       {/* RBR Pit Wall Radio Banner */}
@@ -49,38 +49,38 @@ export default function Contact() {
         </div>
         
         <div className="p-8 text-left">
-          <div className="flex items-center gap-3 mb-8 border-b border-[#E95420]/30 pb-4">
-            <Radio className="w-6 h-6 text-[#E95420] animate-pulse" />
+          <div className="flex items-center gap-3 mb-8 border-b border-[#E10600]/30 pb-4">
+            <Radio className="w-6 h-6 text-[#E10600] animate-pulse" />
             <h3 className="font-display text-2xl uppercase tracking-widest text-white">Direct Comm Link</h3>
           </div>
 
           <div className="space-y-6 font-mono">
             <div className="group">
-              <div className="text-[10px] text-[#E95420] tracking-widest mb-1 flex items-center gap-2 font-bold">
-                <div className="w-1.5 h-1.5 bg-[#E95420] rounded-full animate-pulse shadow-[0_0_5px_#E95420]" />
+              <div className="text-[10px] text-[#E10600] tracking-widest mb-1 flex items-center gap-2 font-bold">
+                <div className="w-1.5 h-1.5 bg-[#E10600] rounded-full animate-pulse shadow-[0_0_5px_#E10600]" />
                 DIRECT_LINE (PHONE)
               </div>
-              <div className="text-xl text-white flex items-center justify-between border border-white/10 bg-black/40 p-4 group-hover:border-[#E95420]/70 transition-colors relative overflow-hidden shadow-inner">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#E95420]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="text-xl text-white flex items-center justify-between border border-white/10 bg-black/40 p-4 group-hover:border-[#E10600]/70 transition-colors relative overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#E10600]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span className="relative z-10 tracking-wider">8668488303</span>
-                <Phone className="w-6 h-6 text-white/30 group-hover:text-[#E95420] relative z-10 transition-colors" />
+                <Phone className="w-6 h-6 text-white/30 group-hover:text-[#E10600] relative z-10 transition-colors" />
               </div>
             </div>
 
             <div className="group">
-              <div className="text-[10px] text-[#E95420] tracking-widest mb-1 flex items-center gap-2 font-bold">
-                <div className="w-1.5 h-1.5 bg-[#E95420] rounded-full animate-pulse shadow-[0_0_5px_#E95420]" />
+              <div className="text-[10px] text-[#E10600] tracking-widest mb-1 flex items-center gap-2 font-bold">
+                <div className="w-1.5 h-1.5 bg-[#E10600] rounded-full animate-pulse shadow-[0_0_5px_#E10600]" />
                 ENCRYPTED_MAIL (EMAIL)
               </div>
-              <div className="text-xl text-white flex items-center justify-between border border-white/10 bg-black/40 p-4 group-hover:border-[#E95420]/70 transition-colors relative overflow-hidden shadow-inner">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#E95420]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="text-xl text-white flex items-center justify-between border border-white/10 bg-black/40 p-4 group-hover:border-[#E10600]/70 transition-colors relative overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#E10600]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span className="text-sm sm:text-base relative z-10 tracking-wider">yuvraj280605@gmail.com</span>
-                <Mail className="w-6 h-6 text-white/30 group-hover:text-[#E95420] relative z-10 transition-colors" />
+                <Mail className="w-6 h-6 text-white/30 group-hover:text-[#E10600] relative z-10 transition-colors" />
               </div>
             </div>
             
             <div className="pt-8 border-t border-white/10">
-              <div className="text-xs text-center text-[var(--color-neon-blue)] uppercase tracking-widest flex items-center justify-center gap-2 bg-[var(--color-neon-blue)]/10 p-3 border border-[var(--color-neon-blue)]/30 font-bold shadow-[0_0_15px_rgba(0,210,190,0.2)]">
+              <div className="text-xs text-center text-[var(--color-rbr-yellow)] uppercase tracking-widest flex items-center justify-center gap-2 bg-[var(--color-rbr-yellow)]/10 p-3 border border-[var(--color-rbr-yellow)]/30 font-bold shadow-[0_0_15px_rgba(255, 215, 0,0.2)]">
                 <ShieldAlert className="w-5 h-5" />
                 End-to-End Encrypted Handshake Established
               </div>
@@ -90,8 +90,8 @@ export default function Contact() {
       </div>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 pt-8">
-        <a href="https://linkedin.com/in/yuvraj-rajni-sachin-deshmukh-116627283/" target="_blank" rel="noreferrer" className="flex items-center gap-3 font-mono text-lg text-white/70 hover:text-[var(--color-neon-blue)] transition-colors group">
-          <div className="p-3 border border-white/10 group-hover:border-[var(--color-neon-blue)]/50 bg-black/40 group-hover:bg-[var(--color-neon-blue)]/10 transition-colors shadow-lg">
+        <a href="https://linkedin.com/in/yuvraj-rajni-sachin-deshmukh-116627283/" target="_blank" rel="noreferrer" className="flex items-center gap-3 font-mono text-lg text-white/70 hover:text-[var(--color-rbr-yellow)] transition-colors group">
+          <div className="p-3 border border-white/10 group-hover:border-[var(--color-rbr-yellow)]/50 bg-black/40 group-hover:bg-[var(--color-rbr-yellow)]/10 transition-colors shadow-lg">
             <Linkedin className="w-6 h-6" />
           </div>
           <span>LinkedIn_Node</span>

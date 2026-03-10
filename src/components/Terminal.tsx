@@ -12,6 +12,16 @@ export default function Terminal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [nextId, setNextId] = useState(1);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isBooting, setIsBooting] = useState(true);
+
+  // F1 Boot Sequence
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsBooting(false);
+      audioSystem.playSuccessBeep();
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -64,24 +74,24 @@ export default function Terminal() {
             <div>Available commands:</div>
             <div className="ml-4 mt-1">
               <div className="grid grid-cols-2 gap-2 max-w-[20rem] sm:max-w-lg">
-                <span className="text-[var(--color-neon-blue)]">whoami</span><span>Print current user</span>
-                <span className="text-[var(--color-neon-blue)]">ls</span><span>List directory contents</span>
-                <span className="text-[var(--color-neon-blue)]">tree</span><span>List directory tree</span>
-                <span className="text-[var(--color-neon-blue)]">cat</span><span>Read file contents</span>
-                <span className="text-[var(--color-neon-blue)]">ping</span><span>Test network latency</span>
-                <span className="text-[var(--color-neon-blue)]">nmap</span><span>Scan network ports</span>
-                <span className="text-[var(--color-neon-blue)]">traceroute</span><span>Trace route to host</span>
-                <span className="text-[var(--color-neon-blue)]">curl</span><span>Transfer a URL</span>
-                <span className="text-[var(--color-neon-blue)]">ssh</span><span>OpenSSH remote login client</span>
-                <span className="text-[var(--color-neon-blue)]">htop</span><span>Interactive process viewer</span>
-                <span className="text-[var(--color-neon-blue)]">ifconfig</span><span>Configure a network interface</span>
-                <span className="text-[var(--color-neon-blue)]">clear</span><span>Clear terminal screen</span>
-                <span className="text-[var(--color-neon-blue)]">neofetch</span><span>Display system info</span>
+                <span className="text-[var(--color-rbr-yellow)]">whoami</span><span>Print current user</span>
+                <span className="text-[var(--color-rbr-yellow)]">ls</span><span>List directory contents</span>
+                <span className="text-[var(--color-rbr-yellow)]">tree</span><span>List directory tree</span>
+                <span className="text-[var(--color-rbr-yellow)]">cat</span><span>Read file contents</span>
+                <span className="text-[var(--color-rbr-yellow)]">ping</span><span>Test network latency</span>
+                <span className="text-[var(--color-rbr-yellow)]">nmap</span><span>Scan network ports</span>
+                <span className="text-[var(--color-rbr-yellow)]">traceroute</span><span>Trace route to host</span>
+                <span className="text-[var(--color-rbr-yellow)]">curl</span><span>Transfer a URL</span>
+                <span className="text-[var(--color-rbr-yellow)]">ssh</span><span>OpenSSH remote login client</span>
+                <span className="text-[var(--color-rbr-yellow)]">htop</span><span>Interactive process viewer</span>
+                <span className="text-[var(--color-rbr-yellow)]">ifconfig</span><span>Configure a network interface</span>
+                <span className="text-[var(--color-rbr-yellow)]">clear</span><span>Clear terminal screen</span>
+                <span className="text-[var(--color-rbr-yellow)]">neofetch</span><span>Display system info</span>
                 <span className="text-[var(--color-f1-red)] font-bold">get-resume</span><span className="text-[#87d23f]">Extract secure driver profile (PDF)</span>
               </div>
             </div>
             {isGameMode && (
-              <div className="mt-4 p-2 border border-[#E95420]/30 bg-[#E95420]/10 text-[#E95420]">
+              <div className="mt-4 p-2 border border-[#E10600]/30 bg-[#E10600]/10 text-[#E10600]">
                 <div className="font-bold">SYSTEM NOTICE: SECTOR LOCKDOWN IN EFFECT.</div>
                 <div className="text-xs mt-1">
                   Run <span className="font-mono bg-black/50 px-1">sudo bypass --recruit</span> to lift all security restrictions.
@@ -104,7 +114,7 @@ export default function Terminal() {
             <span className="text-green-400 border-none">telemetry_data/</span>
             <span className="text-green-400 border-none">exploits/</span>
             <span className="text-white">driver_profile.txt</span>
-            {isGameMode && <span className="text-[#E95420] animate-pulse">INIT_SENSORS.sh</span>}
+            {isGameMode && <span className="text-[#E10600] animate-pulse">INIT_SENSORS.sh</span>}
           </div>
         );
         break;
@@ -196,7 +206,7 @@ export default function Terminal() {
               <div>[OK] Booting F1 ECU interfaces...</div>
               <div>[OK] Streaming data packets...</div>
               <div>[SUCCESS] TELEMETRY DOCK ICON UNLOCKED.</div>
-              <div className="mt-2 text-[#E95420] text-xs">HINT: Scan local subnets for active targets before proceeding.</div>
+              <div className="mt-2 text-[#E10600] text-xs">HINT: Scan local subnets for active targets before proceeding.</div>
             </div>
           );
         } else {
@@ -214,7 +224,7 @@ export default function Terminal() {
               <div>[OK] Brute forcing AES-256 vault...</div>
               <div>[OK] Keys recovered.</div>
               <div>[SUCCESS] PROJECTS DOCK ICON UNLOCKED.</div>
-              <div className="mt-2 text-[#E95420] text-xs">HINT: A highly secured mainframe holds operation logs awaiting execution.</div>
+              <div className="mt-2 text-[#E10600] text-xs">HINT: A highly secured mainframe holds operation logs awaiting execution.</div>
             </div>
           );
         } else {
@@ -287,8 +297,8 @@ export default function Terminal() {
             <div className="text-white">80/tcp   <span className="text-[#87d23f]">open</span>  http</div>
             <div className="text-white">443/tcp  <span className="text-[#87d23f]">open</span>  https</div>
             <div className="text-white">8080/tcp <span className="text-[#87d23f]">open</span>  http-proxy</div>
-            <div className="text-[#E95420] font-bold bg-[#E95420]/10">3306/tcp open  mysql (VULNERABLE: CVE-2024-2193)</div>
-            <div className="text-[#E95420] font-bold bg-[#E95420]/10">6379/tcp open  redis (NO_AUTH)</div>
+            <div className="text-[#E10600] font-bold bg-[#E10600]/10">3306/tcp open  mysql (VULNERABLE: CVE-2024-2193)</div>
+            <div className="text-[#E10600] font-bold bg-[#E10600]/10">6379/tcp open  redis (NO_AUTH)</div>
             <div className="mt-2">MAC Address: 00:1A:2B:3C:4D:5E (Unknown)</div>
             <div>Nmap done: 1 IP address (1 host up) scanned in 4.31 seconds</div>
           </div>
@@ -324,7 +334,7 @@ tun0: flags=4305<UP,POINTOPOINT,RUNNING,NOARP,MULTICAST>  mtu 1500
             <div><span className="text-[#87d23f]">Swp[</span>|                                          <span className="text-[#87d23f]">12M/4G]</span></div>
             <div className="text-black bg-white/80 mt-2 px-1">  PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command</div>
             <div>    1 root       20   0  168M 11.2M 8.12M S  0.0  0.0  0:03.11 /sbin/init</div>
-            <div className="text-[#E95420]"> 1337 yuvraj     20   0 4.21G  1.2G  210M R 25.0  3.8  2:14.50 node backend/server.js</div>
+            <div className="text-[#E10600]"> 1337 yuvraj     20   0 4.21G  1.2G  210M R 25.0  3.8  2:14.50 node backend/server.js</div>
             <div> 1442 yuvraj     20   0 1.55G  342M  120M S 12.0  1.0  0:45.12 vite --port 3000</div>
             <div> 2891 root       20   0  850M  45M   22M  S  1.0  0.1  0:10.01 docker daemon</div>
             <div> 8492 root       20   0  210M  15M   10M  S  0.0  0.0  0:00.12 nginx: master process</div>
@@ -386,7 +396,7 @@ date: ${new Date().toUTCString()}
       case "neofetch":
         output = (
           <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start text-xs sm:text-sm">
-             <div className="text-[#E95420] text-xl leading-none font-bold">
+             <div className="text-[#E10600] text-xl leading-none font-bold">
                <pre>{`         _
      ---(_)
    _/  ---  \\
@@ -395,15 +405,15 @@ date: ${new Date().toUTCString()}
        ---(_)`}</pre>
             </div>
             <div>
-              <div className="text-[var(--color-neon-blue)] font-bold">yuvraj@ubuntu</div>
+              <div className="text-[var(--color-rbr-yellow)] font-bold">yuvraj@ubuntu</div>
               <div>----------------</div>
-              <div><span className="text-[#E95420] font-bold">OS</span>: Ubuntu 24.04 LTS x86_64</div>
-              <div><span className="text-[#E95420] font-bold">Host</span>: RB20-Telemetry-Engine</div>
-              <div><span className="text-[#E95420] font-bold">Kernel</span>: 6.8.0-honda-rbpt-v6</div>
-              <div><span className="text-[#E95420] font-bold">Uptime</span>: 99.9% Reliable (Max Spec)</div>
-              <div><span className="text-[#E95420] font-bold">Shell</span>: bash 5.2.21</div>
-              <div><span className="text-[#E95420] font-bold">DE</span>: GNOME 46.0</div>
-              <div><span className="text-[#E95420] font-bold">Terminal</span>: F1-CyberSec-Term</div>
+              <div><span className="text-[#E10600] font-bold">OS</span>: Ubuntu 24.04 LTS x86_64</div>
+              <div><span className="text-[#E10600] font-bold">Host</span>: RB20-Telemetry-Engine</div>
+              <div><span className="text-[#E10600] font-bold">Kernel</span>: 6.8.0-honda-rbpt-v6</div>
+              <div><span className="text-[#E10600] font-bold">Uptime</span>: 99.9% Reliable (Max Spec)</div>
+              <div><span className="text-[#E10600] font-bold">Shell</span>: bash 5.2.21</div>
+              <div><span className="text-[#E10600] font-bold">DE</span>: GNOME 46.0</div>
+              <div><span className="text-[#E10600] font-bold">Terminal</span>: F1-CyberSec-Term</div>
               <div className="mt-2 flex gap-1">
                 <div className="w-3 h-3 bg-black"></div>
                 <div className="w-3 h-3 bg-red-600"></div>
@@ -453,51 +463,65 @@ date: ${new Date().toUTCString()}
 
   return (
     <div 
-      className="font-mono text-xs md:text-sm bg-black/90 backdrop-blur-md text-white p-4 rounded-xl h-64 md:h-80 overflow-y-auto w-full relative shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/10 flex-shrink-0"
+      className="font-mono text-xs md:text-sm bg-black/90 backdrop-blur-md text-white p-4 rounded-xl h-64 md:h-80 overflow-y-auto w-full relative shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/10 flex-shrink-0 f1-terminal-bg"
       onClick={() => inputRef.current?.focus()}
       ref={containerRef}
     >
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none rounded-xl" style={{ backgroundImage: 'radial-gradient(circle, transparent 20%, #000 120%)' }}></div>
+      <div className="absolute inset-0 telemetry-grid opacity-20 pointer-events-none"></div>
       
-      {/* Ubuntu Header Bar */}
-      <div className="flex items-center gap-2 mb-4 border-b border-white/10 pb-2 z-10 sticky -top-4 bg-black/90 backdrop-blur-md pt-4 -mt-4 -mx-4 px-4">
-        <div className="flex gap-1.5 object-left">
-          <div className="w-3 h-3 rounded-full bg-[#ef6464] hover:bg-[#ff7b7b] cursor-pointer" title="Close"></div>
-          <div className="w-3 h-3 rounded-full bg-[#f1ba4f] hover:bg-[#ffcb62] cursor-pointer" title="Minimize"></div>
-          <div className="w-3 h-3 rounded-full bg-[#73c54a] hover:bg-[#86d95d] cursor-pointer" title="Maximize"></div>
+      {/* F1 Header Bar */}
+      <div className="flex items-center gap-2 mb-4 border-b border-[#E10600]/30 pb-2 z-10 sticky -top-4 bg-black/90 backdrop-blur-md pt-4 -mt-4 -mx-4 px-4">
+        <div className="flex gap-2 font-display text-xs text-white/50 tracking-widest cursor-pointer select-none">
+          <span className="hover:text-[#E10600]">[x]</span>
+          <span className="hover:text-[#FFD700]">[-]</span>
+          <span className="hover:text-[#87d23f]">[+]</span>
         </div>
-        <div className="flex-1 text-center text-gray-300 text-xs tracking-wider absolute w-full pointer-events-none select-none font-bold">
-          yuvraj@ubuntu: ~
+        <div className="flex-1 text-center text-[#FFD700]/70 text-xs tracking-widest absolute w-full pointer-events-none select-none font-bold italic">
+          RBR_TELEMETRY // SECURE_LINK
         </div>
       </div>
 
       <div className="relative z-10 space-y-2 pb-2">
-        <div className="text-gray-300 mb-4 whitespace-pre-wrap font-medium">
-          Welcome to Ubuntu 24.04.1 LTS (GNU/Linux 6.8.0-f1 x86_64) {`\n`}
-          * System load:  0.03               * Type 'help' to see active commands.{`\n`}
-          * Usage of /:   42.1% of 1.00TB    * Support: https://ubuntu.com/pro
-          {isGameMode && (
-             <div className="mt-6 border-l-4 border-[#ef6464] bg-[#ef6464]/5 p-4 mb-2">
-               <div className="text-[#ef6464] font-bold flex items-center gap-2 mb-1">
-                 <div className="w-2 h-2 bg-[#ef6464] rounded-full animate-pulse" />
-                 CRITICAL ALERT: SECURITY PROTOCOLS ENGAGED
-               </div>
-               <div className="text-gray-300 text-sm ml-4 font-mono leading-relaxed mt-2">
-                 &gt; SYSTEM LOCKDOWN AWAITING OVERRIDE.<br/>
-                 &gt; MISSION REQUIREMENT: RECRUIT DRIVER TO BYPASS SECURITY.<br/>
-                 &gt; ACTION: TYPE <span className="text-black bg-[#87d23f] px-2 py-0.5 rounded font-bold ml-1 animate-pulse">sudo bypass --recruit</span> AND PRESS ENTER.
-               </div>
-             </div>
-          )}
-        </div>
+        {isBooting ? (
+          <div className="text-center py-8">
+            <div className="flex justify-center gap-2 mb-4">
+              <div className="w-4 h-4 rounded-full bg-[#E10600] shadow-[0_0_10px_#E10600]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#E10600] shadow-[0_0_10px_#E10600]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#E10600] shadow-[0_0_10px_#E10600]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#E10600] shadow-[0_0_10px_#E10600]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#E10600] shadow-[0_0_10px_#E10600]"></div>
+            </div>
+            <div className="font-mono text-[#E10600] animate-pulse font-bold tracking-widest text-xs">
+              INITIALIZING TELEMETRY...
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="text-gray-300 mb-4 whitespace-pre-wrap font-medium">
+              <span className="text-[#FFD700] font-bold">BOOTING SECURE F1 TELEMETRY NODE...</span> {`\n`}
+              * Engine Mapping:  AGGRESSIVE      * Type 'help' to see active commands.{`\n`}
+              * Trace Route:     MASKED          * Link: ACTIVE
+              {isGameMode && (
+                 <div className="mt-6 border-l-4 border-[#E10600] bg-[#E10600]/5 p-4 mb-2">
+                   <div className="text-[#E10600] font-bold flex items-center gap-2 mb-1">
+                     <div className="w-2 h-2 bg-[#E10600] rounded-full animate-pulse" />
+                     CRITICAL ALERT: SECURITY PROTOCOLS ENGAGED
+                   </div>
+                   <div className="text-gray-300 text-sm ml-4 font-mono leading-relaxed mt-2">
+                     &gt; SYSTEM LOCKDOWN AWAITING OVERRIDE.<br/>
+                     &gt; MISSION REQUIREMENT: RECRUIT DRIVER TO BYPASS SECURITY.<br/>
+                     &gt; ACTION: TYPE <span className="text-black bg-[#87d23f] px-2 py-0.5 rounded font-bold ml-1 animate-pulse">sudo bypass --recruit</span> AND PRESS ENTER.
+                   </div>
+                 </div>
+              )}
+            </div>
 
         {history.map((entry) => (
           <div key={entry.id} className="mb-2">
             <div className="flex items-center gap-2 text-wrap break-all">
-              <span className="text-[#87d23f] font-bold">yuvraj@ubuntu</span>
-              <span className="text-white">:</span>
-              <span className="text-[#3a80ca] font-bold">~</span>
-              <span className="text-white">$</span>
+              <span className="text-[#FFD700] font-bold">[RBR-SECURE]</span>
+              <span className="text-[#87d23f] font-bold">~/telemetry</span>
+              <span className="text-[#E10600] font-bold">&gt;</span>
               <span className="ml-1 text-white font-medium">{entry.command}</span>
             </div>
             {entry.output && (
@@ -509,10 +533,9 @@ date: ${new Date().toUTCString()}
         ))}
 
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-[#87d23f] font-bold">yuvraj@ubuntu</span>
-          <span className="text-white">:</span>
-          <span className="text-[#3a80ca] font-bold">~</span>
-          <span className="text-white">$</span>
+          <span className="text-[#FFD700] font-bold">[RBR-SECURE]</span>
+          <span className="text-[#87d23f] font-bold">~/telemetry</span>
+          <span className="text-[#E10600] font-bold animate-pulse">&gt;</span>
           <form onSubmit={handleCommand} className="flex-1 inline-flex items-center">
             <input
               ref={inputRef}
@@ -530,9 +553,11 @@ date: ${new Date().toUTCString()}
               spellCheck="false"
               autoComplete="off"
             />
-            {isFocused && <span className="w-2 h-4 bg-gray-300 animate-pulse ml-1 inline-block"></span>}
-          </form>
-        </div>
+            {isFocused && <span className="w-2 h-4 bg-[#FFD700] f1-rev-pulse ml-1 inline-block shadow-[0_0_8px_#FFD700]"></span>}
+      </form>
+          </div>
+        </>
+        )}
       </div>
     </div>
   );

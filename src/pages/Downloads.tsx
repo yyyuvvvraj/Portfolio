@@ -10,7 +10,7 @@ export default function Downloads() {
         {/* Background grids and patterns */}
         <div className="absolute inset-0 telemetry-grid opacity-20 pointer-events-none" />
         <div className="absolute top-0 right-0 w-1/2 h-full checkered-pattern opacity-[0.02] pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#E95420] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#E10600] to-transparent" />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -20,8 +20,8 @@ export default function Downloads() {
         >
           {/* Header section */}
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-black/40 backdrop-blur-md p-8 border border-white/10 cyber-border">
-            <div className="p-4 bg-[#E95420]/10 rounded-full border border-[#E95420]/30 shadow-[0_0_20px_rgba(233,84,32,0.2)]">
-              <Download className="w-10 h-10 text-[#E95420]" />
+            <div className="p-4 bg-[#E10600]/10 rounded-full border border-[#E10600]/30 shadow-[0_0_20px_rgba(225, 6, 0,0.2)]">
+              <Download className="w-10 h-10 text-[#E10600]" />
             </div>
             <div className="text-center md:text-left">
               <h2 className="font-display text-3xl md:text-4xl uppercase tracking-widest text-white mb-2">

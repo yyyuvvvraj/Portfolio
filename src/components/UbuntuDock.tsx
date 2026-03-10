@@ -45,8 +45,8 @@ function SysMonitorAppIcon({ className }: { className?: string }) {
           <stop offset="100%" stopColor="#1a1a1a" />
         </linearGradient>
         <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#E95420" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#E95420" stopOpacity="0" />
+          <stop offset="0%" stopColor="#E10600" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#E10600" stopOpacity="0" />
         </linearGradient>
       </defs>
       <g filter="url(#shadow)">
@@ -60,9 +60,9 @@ function SysMonitorAppIcon({ className }: { className?: string }) {
         <line x1="20" y1="70" x2="80" y2="70" stroke="#333" strokeWidth="1" />
         {/* Graph */}
         <path d="M 20 60 L 35 40 L 50 55 L 65 30 L 80 50 L 80 80 L 20 80 Z" fill="url(#chartGlow)" />
-        <polyline points="20,60 35,40 50,55 65,30 80,50" fill="none" stroke="#E95420" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points="20,60 35,40 50,55 65,30 80,50" fill="none" stroke="#E10600" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         {/* Outer Ring */}
-        <circle cx="50" cy="50" r="30" fill="none" stroke="#E95420" strokeWidth="2" strokeDasharray="5,5" opacity="0.5" />
+        <circle cx="50" cy="50" r="30" fill="none" stroke="#E10600" strokeWidth="2" strokeDasharray="5,5" opacity="0.5" />
       </g>
     </svg>
   );
@@ -87,7 +87,7 @@ function MailAppIcon({ className }: { className?: string }) {
         <path d="M 25 40 L 50 60 L 75 40 L 70 30 C 68 30 65 30 65 30 L 35 30 C 30 30 25 40 25 40 Z" fill="url(#mailFlap)" />
         <polyline points="25,40 50,60 75,40" fill="none" stroke="#2c85c2" strokeWidth="2" strokeLinejoin="round" />
         {/* Stamp or accent */}
-        <circle cx="65" cy="45" r="5" fill="#E95420" />
+        <circle cx="65" cy="45" r="5" fill="#E10600" />
       </g>
     </svg>
   );
@@ -122,13 +122,13 @@ export default function UbuntuDock() {
     { path: '/', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo-ubuntu_cof-orange-hex.svg', label: 'Home', type: 'image' },
     { path: '/telemetry', IconComponent: SysMonitorAppIcon, label: 'Telemetry (System Monitor)', type: 'component' },
     { path: '/projects', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg', label: 'Projects (Browser)', type: 'image' },
-    { path: '/downloads', IconComponent: FolderAppIcon, label: 'Secure Downloads (Files)', type: 'component' },
     { path: '/logs', IconComponent: TerminalAppIcon, label: 'Operation Logs (Terminal)', type: 'component' },
     { path: '/contact', IconComponent: MailAppIcon, label: 'Secure Channel (Comms)', type: 'component' },
+    { path: '/downloads', IconComponent: FolderAppIcon, label: 'Secure Downloads (Files)', type: 'component' },
   ];
 
   return (
-    <div className="fixed left-0 top-7 bottom-0 w-16 bg-[#300a24]/80 backdrop-blur-md border-r border-[#E95420]/30 flex flex-col items-center py-4 gap-4 z-40">
+    <div className="fixed left-0 top-7 bottom-0 w-16 bg-[#300a24]/80 backdrop-blur-md border-r border-[#E10600]/30 flex flex-col items-center py-4 gap-4 z-40">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
         // Normalize path to match context route keys
@@ -164,7 +164,7 @@ export default function UbuntuDock() {
             title={item.label}
           >
             {isActive && (
-              <div className="absolute left-[-2px] top-1/2 -translate-y-1/2 w-1 h-6 bg-[#E95420] rounded-r-md shadow-[0_0_10px_#E95420]" />
+              <div className="absolute left-[-2px] top-1/2 -translate-y-1/2 w-1 h-6 bg-[#E10600] rounded-r-md shadow-[0_0_10px_#E10600]" />
             )}
             {item.type === 'image' ? (
               <img src={item.iconUrl} alt={item.label} className="w-8 h-8 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-200" />

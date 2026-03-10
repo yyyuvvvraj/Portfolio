@@ -10,10 +10,10 @@ function StartingLights() {
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="flex flex-col gap-2">
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[#E95420] f1-light-${i}`} />
+            <div className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`} />
           </div>
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[#E95420] f1-light-${i}`} />
+            <div className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`} />
           </div>
         </div>
       ))}
@@ -60,8 +60,8 @@ export default function Home() {
         className="absolute inset-0 opacity-20 telemetry-grid pointer-events-none"
       />
       <div className="absolute top-0 right-0 w-1/3 h-full checkered-pattern opacity-[0.03] pointer-events-none mix-blend-overlay" />
-      <div className="absolute -top-32 right-1/4 w-8 h-[150%] bg-[#E95420] opacity-10 f1-skew-reverse pointer-events-none blur-sm" />
-      <div className="absolute -top-32 right-[28%] w-2 h-[150%] bg-[#E95420] opacity-20 f1-skew-reverse pointer-events-none blur-[1px]" />
+      <div className="absolute -top-32 right-1/4 w-8 h-[150%] bg-[#E10600] opacity-10 f1-skew-reverse pointer-events-none blur-sm" />
+      <div className="absolute -top-32 right-[28%] w-2 h-[150%] bg-[#E10600] opacity-20 f1-skew-reverse pointer-events-none blur-[1px]" />
       
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col gap-12 pt-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -72,8 +72,8 @@ export default function Home() {
           >
             <StartingLights />
             <div className="flex items-center gap-4 mb-6">
-              <span className="font-mono text-[#E95420] text-lg animate-pulse">● REC</span>
-              <div className="h-[1px] w-12 bg-[#E95420]" />
+              <span className="font-mono text-[#E10600] text-lg animate-pulse">● REC</span>
+              <div className="h-[1px] w-12 bg-[#E10600]" />
               <span className="font-mono text-white/50 uppercase tracking-widest text-sm">Lead Driver & Security Eng</span>
             </div>
             
@@ -84,7 +84,7 @@ export default function Home() {
               </span>
             </h1>
             
-            <p className="font-mono text-white/70 max-w-md mb-8 leading-relaxed border-l-2 border-[#E95420] pl-4">
+            <p className="font-mono text-white/70 max-w-md mb-8 leading-relaxed border-l-2 border-[#E10600] pl-4">
               Full-stack engineer engineered for high performance. Merging the speed of F1 telemetry with the precision of modern cybersecurity.
             </p>
             
@@ -93,7 +93,7 @@ export default function Home() {
                 href="https://github.com/yyyuvvvraj" 
                 target="_blank" 
                 rel="noreferrer"
-                className="f1-skew bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 hover:bg-[#E95420] hover:text-white transition-all duration-300 group text-center shadow-[0_0_20px_rgba(255,255,255,0.1)] rounded-tl-lg rounded-br-lg"
+                className="f1-skew bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 hover:bg-[#E10600] hover:text-white transition-all duration-300 group text-center shadow-[0_0_20px_rgba(255,255,255,0.1)] rounded-tl-lg rounded-br-lg"
               >
                 <div className="f1-skew-reverse flex items-center justify-center gap-2 font-display uppercase tracking-wider">
                   <Github className="w-5 h-5" />
@@ -104,9 +104,9 @@ export default function Home() {
                 href="https://linkedin.com/in/yuvraj-rajni-sachin-deshmukh-116627283/" 
                 target="_blank" 
                 rel="noreferrer"
-                className="f1-skew border border-[var(--color-neon-blue)]/50 px-8 py-4 hover:bg-[var(--color-neon-blue)]/10 hover:border-[var(--color-neon-blue)] transition-all duration-300 text-center"
+                className="f1-skew border border-[var(--color-rbr-yellow)]/50 px-8 py-4 hover:bg-[var(--color-rbr-yellow)]/10 hover:border-[var(--color-rbr-yellow)] transition-all duration-300 text-center"
               >
-                <div className="f1-skew-reverse flex items-center justify-center gap-2 font-display uppercase tracking-wider text-[var(--color-neon-blue)]">
+                <div className="f1-skew-reverse flex items-center justify-center gap-2 font-display uppercase tracking-wider text-[var(--color-rbr-yellow)]">
                   <Linkedin className="w-5 h-5" />
                   <span>LinkedIn_Node</span>
                 </div>
@@ -129,13 +129,13 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative hidden md:flex flex-col items-center justify-center gap-8"
           >
-            <div className="aspect-square w-64 rounded-full border border-[var(--color-neon-blue)]/20 relative flex items-center justify-center mt-4 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/40 backdrop-blur-md">
-              <div className="absolute inset-2 rounded-full border border-dashed border-[#E95420]/40 animate-[spin_40s_linear_infinite]" />
-              <div className="absolute inset-8 rounded-full border border-[var(--color-neon-blue)]/30" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#E95420]/5 to-[var(--color-neon-blue)]/5 rounded-full" />
+            <div className="aspect-square w-64 rounded-full border border-[var(--color-rbr-yellow)]/20 relative flex items-center justify-center mt-4 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/40 backdrop-blur-md">
+              <div className="absolute inset-2 rounded-full border border-dashed border-[#E10600]/40 animate-[spin_40s_linear_infinite]" />
+              <div className="absolute inset-8 rounded-full border border-[var(--color-rbr-yellow)]/30" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#E10600]/5 to-[var(--color-rbr-yellow)]/5 rounded-full" />
               <div className="text-center relative z-10">
-                <ShieldAlert className="w-12 h-12 mx-auto text-[#E95420] mb-2 opacity-80" />
-                <div className="font-mono text-[var(--color-neon-blue)] text-xs bg-[var(--color-carbon)] px-3 py-1 border border-[var(--color-neon-blue)]/30 shadow-[0_0_10px_var(--color-neon-blue)]">SYS: SECURE</div>
+                <ShieldAlert className="w-12 h-12 mx-auto text-[#E10600] mb-2 opacity-80" />
+                <div className="font-mono text-[var(--color-rbr-yellow)] text-xs bg-[var(--color-carbon)] px-3 py-1 border border-[var(--color-rbr-yellow)]/30 shadow-[0_0_10px_var(--color-rbr-yellow)]">SYS: SECURE</div>
               </div>
             </div>
           </motion.div>

@@ -46,7 +46,7 @@ function UbuntuTopBar() {
   return (
     <div className="fixed top-0 left-0 w-full h-7 bg-black/95 backdrop-blur-md z-50 flex items-center justify-between px-4 text-white font-ubuntu text-13px shadow-md border-b border-white/5">
       <div className="flex items-center gap-4 h-full">
-        <div className="hover:bg-white/10 h-full px-2 flex items-center cursor-pointer transition-colors rounded-sm text-[#E95420] font-bold">Activities</div>
+        <div className="hover:bg-white/10 h-full px-2 flex items-center cursor-pointer transition-colors rounded-sm text-[#E10600] font-bold">Activities</div>
         {isGameMode && (
           <div className="flex items-center gap-2 h-full px-2 text-[#87d23f] font-mono whitespace-nowrap hidden sm:flex">
             <span>SEC_CLEARANCE_SCORE:</span>
@@ -65,7 +65,7 @@ function UbuntuTopBar() {
         onClick={() => setIsPanelOpen(!isPanelOpen)}
       >
         <div className="flex items-center gap-3 opacity-80 pl-2 pr-1">
-          <div className="hover:text-[#E95420] transition-colors" title="Toggle System Sound" onClick={(e) => { e.stopPropagation(); toggleVolume(e); }}>
+          <div className="hover:text-[#E10600] transition-colors" title="Toggle System Sound" onClick={(e) => { e.stopPropagation(); toggleVolume(e); }}>
             {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#87d23f]" />}
           </div>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg>
@@ -77,11 +77,11 @@ function UbuntuTopBar() {
         {isPanelOpen && (
           <div className="absolute top-full mt-1 right-0 w-80 bg-[#1e1e1ede] backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/10 p-4 text-white font-ubuntu cursor-default flex flex-col gap-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-4">
-               <button onClick={toggleVolume} className={`p-2 rounded-full transition-colors ${!isMuted ? 'bg-[#E95420] text-white hover:bg-[#E95420]/80' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
+               <button onClick={toggleVolume} className={`p-2 rounded-full transition-colors ${!isMuted ? 'bg-[#E10600] text-white hover:bg-[#E10600]/80' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
                  {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                </button>
                <div className="flex-1 h-1.5 bg-black/50 rounded-full overflow-hidden relative">
-                 <div className={`absolute left-0 top-0 h-full transition-all duration-300 ${!isMuted ? 'w-3/4 bg-[#E95420]' : 'w-0 bg-transparent'}`} />
+                 <div className={`absolute left-0 top-0 h-full transition-all duration-300 ${!isMuted ? 'w-3/4 bg-[#E10600]' : 'w-0 bg-transparent'}`} />
                </div>
             </div>
 
@@ -90,7 +90,7 @@ function UbuntuTopBar() {
             <div className="grid grid-cols-2 gap-2">
               <div className="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl flex items-center justify-between cursor-pointer">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#E95420] rounded-full"><svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg></div>
+                  <div className="p-2 bg-[#E10600] rounded-full"><svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 7.48 2 13v6h4v-6c0-3.31 2.69-6 6-6s6 2.69 6 6v6h4v-6c0-5.52-4.48-10-10-10z"/></svg></div>
                   <div className="flex flex-col">
                     <span className="font-bold text-sm">Wi-Fi</span>
                     <span className="text-xs text-white/50">Yuvraj_5G</span>

@@ -184,7 +184,7 @@ export default function LogsTerminal() {
     <span className="text-[#FFD700]">{children}</span>
   );
   const Cyan = ({ children }: { children: ReactNode }) => (
-    <span className="text-[var(--color-neon-blue)]">{children}</span>
+    <span className="text-[var(--color-rbr-yellow)]">{children}</span>
   );
 
   const LogReveal = ({ log }: { log: typeof LOGS[LogKey] }) => (
@@ -220,7 +220,7 @@ export default function LogsTerminal() {
     if (cmd === "help") {
       push(raw, (
         <div className="space-y-1 text-gray-300 text-xs">
-          <div className="text-[var(--color-neon-blue)] font-bold mb-2">AVAILABLE COMMANDS</div>
+          <div className="text-[var(--color-rbr-yellow)] font-bold mb-2">AVAILABLE COMMANDS</div>
           <div className="grid grid-cols-[140px_1fr] gap-y-1 max-w-lg">
             <Cyan>ls</Cyan>              <span>List available log files</span>
             <Cyan>cat logs/op01.log</Cyan><span>Read education log</span>
@@ -235,7 +235,7 @@ export default function LogsTerminal() {
             <Cyan>whoami</Cyan>          <span>Current operator</span>
             <Cyan>clear</Cyan>           <span>Clear terminal</span>
           </div>
-          <div className="mt-3 border border-[#E95420]/30 bg-[#E95420]/5 p-2 text-[#E95420] text-[10px]">
+          <div className="mt-3 border border-[#E10600]/30 bg-[#E10600]/5 p-2 text-[#E10600] text-[10px]">
             MISSION: Reveal all 5 hidden logs to complete your dossier. Type 'status' to track progress.
           </div>
         </div>
@@ -329,7 +329,7 @@ export default function LogsTerminal() {
       const pct = Math.round((done / total) * 100);
       push(raw, (
         <div className="text-xs space-y-2">
-          <div className="text-[var(--color-neon-blue)] font-bold">MISSION DOSSIER STATUS</div>
+          <div className="text-[var(--color-rbr-yellow)] font-bold">MISSION DOSSIER STATUS</div>
           <div className="flex items-center gap-3">
             <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
               <motion.div
@@ -406,21 +406,21 @@ export default function LogsTerminal() {
     if (cmd === "neofetch") {
       push(raw, (
         <div className="flex flex-col sm:flex-row gap-4 items-start text-xs">
-          <pre className="text-[#E95420] font-bold leading-tight">{`         _
+          <pre className="text-[#E10600] font-bold leading-tight">{`         _
      ---(_)
    _/  ---  \\
   (_) |   |
     \\  --- _/
        ---(_)`}</pre>
           <div className="space-y-0.5 text-gray-300">
-            <div className="text-[var(--color-neon-blue)] font-bold">yuvraj@ubuntu</div>
+            <div className="text-[var(--color-rbr-yellow)] font-bold">yuvraj@ubuntu</div>
             <div>────────────────</div>
-            <div><span className="text-[#E95420] font-bold">OS</span>: Ubuntu 24.04 LTS x86_64</div>
-            <div><span className="text-[#E95420] font-bold">Host</span>: RB20-Telemetry-Engine</div>
-            <div><span className="text-[#E95420] font-bold">Kernel</span>: 6.8.0-honda-rbpt-v6</div>
-            <div><span className="text-[#E95420] font-bold">Shell</span>: logs-terminal v2.0</div>
-            <div><span className="text-[#E95420] font-bold">Logs</span>: {revealed.size}/5 decrypted</div>
-            <div><span className="text-[#E95420] font-bold">Score</span>: {score} pts</div>
+            <div><span className="text-[#E10600] font-bold">OS</span>: Ubuntu 24.04 LTS x86_64</div>
+            <div><span className="text-[#E10600] font-bold">Host</span>: RB20-Telemetry-Engine</div>
+            <div><span className="text-[#E10600] font-bold">Kernel</span>: 6.8.0-honda-rbpt-v6</div>
+            <div><span className="text-[#E10600] font-bold">Shell</span>: logs-terminal v2.0</div>
+            <div><span className="text-[#E10600] font-bold">Logs</span>: {revealed.size}/5 decrypted</div>
+            <div><span className="text-[#E10600] font-bold">Score</span>: {score} pts</div>
           </div>
         </div>
       ));

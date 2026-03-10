@@ -121,11 +121,11 @@ export default function InitialBootScreen({ onComplete }: { onComplete: () => vo
             exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
             className="text-center"
           >
-            <Lock className="w-16 h-16 mx-auto mb-6 text-[#E95420] animate-pulse" />
+            <Lock className="w-16 h-16 mx-auto mb-6 text-[#E10600] animate-pulse" />
             <div className="text-2xl tracking-widest text-white/80 font-bold glitch-text" data-text={decryptText}>
               {decryptText}
             </div>
-            <div className="mt-4 text-xs text-[#E95420] animate-pulse">OVERRIDING MAINFRAME ENCRYPTION...</div>
+            <div className="mt-4 text-xs text-[#E10600] animate-pulse">OVERRIDING MAINFRAME ENCRYPTION...</div>
           </motion.div>
         )}
 
@@ -194,7 +194,7 @@ export default function InitialBootScreen({ onComplete }: { onComplete: () => vo
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50">
         <button 
           onClick={onComplete} 
-          className="text-[#E95420] hover:text-white underline uppercase text-xs tracking-widest border border-transparent hover:border-[#E95420] p-2 transition-colors bg-black/50 backdrop-blur-sm"
+          className="text-[#E10600] hover:text-white underline uppercase text-xs tracking-widest border border-transparent hover:border-[#E10600] p-2 transition-colors bg-black/50 backdrop-blur-sm"
         >
           [SKIP_BOOT_SEQUENCE]
         </button>

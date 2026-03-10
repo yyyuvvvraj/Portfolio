@@ -8,10 +8,10 @@ export default function Logs() {
 
       {/* Header */}
       <div className="flex items-center gap-4 mb-4">
-        <TerminalIcon className="w-8 h-8 text-[#E95420]" />
+        <TerminalIcon className="w-8 h-8 text-[#E10600]" />
         <h2 className="font-display text-4xl md:text-5xl uppercase tracking-wide text-white">Operation Logs</h2>
       </div>
-      <p className="font-mono text-sm text-white/50 mb-10 max-w-2xl border-l-2 border-[#E95420]/40 pl-4">
+      <p className="font-mono text-sm text-white/50 mb-10 max-w-2xl border-l-2 border-[#E10600]/40 pl-4">
         This is an interactive terminal. Use commands to explore and decrypt 5 hidden operation logs from my field record.
         Start with <code className="bg-white/10 px-1.5 py-0.5 rounded text-white">ls</code> or <code className="bg-white/10 px-1.5 py-0.5 rounded text-white">help</code>.
       </p>
@@ -43,7 +43,7 @@ export default function Logs() {
           Enhanced Alpha-Beta Pruning and Evaluation Function Optimization for Intelligent Pac-Man AI Agents
         </h3>
 
-        <div className="font-mono text-[var(--color-neon-blue)] text-sm mb-6 flex flex-col gap-1 border-l-2 border-[var(--color-neon-blue)] pl-4 py-1 bg-[var(--color-neon-blue)]/5 w-fit pr-8">
+        <div className="font-mono text-[var(--color-rbr-yellow)] text-sm mb-6 flex flex-col gap-1 border-l-2 border-[var(--color-rbr-yellow)] pl-4 py-1 bg-[var(--color-rbr-yellow)]/5 w-fit pr-8">
           <span>CONFERENCE: ICASS-2026 (IEEE)</span>
           <span>LOCATION: Manav Rachna University</span>
           <span>AFFILIATION: NIIT University</span>

@@ -9,7 +9,7 @@
   --color-f1-red: #E10600;
   --color-carbon: #0d0d0d;
   --color-asphalt: #1a1a1a;
-  --color-neon-blue: #00D2BE;
+  --color-rbr-yellow: #FFD700;
   --color-papaya: #FF8700;
   --color-ferrari: #DC0000;
   --color-surface: #111111;
@@ -45,7 +45,7 @@ body {
 .telemetry-grid {
   background-image: 
     linear-gradient(rgba(225,6,0,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,210,190,0.03) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(255, 215, 0,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
@@ -88,17 +88,17 @@ body {
 }
 .glass-card:hover {
   border-color: rgba(225,6,0,0.3);
-  background: linear-gradient(135deg, rgba(225,6,0,0.04) 0%, rgba(0,210,190,0.02) 100%);
+  background: linear-gradient(135deg, rgba(225,6,0,0.04) 0%, rgba(255, 215, 0,0.02) 100%);
 }
 
 /* ================================
    NEON GLOW UTILITIES
 ================================ */
 .glow-red { box-shadow: 0 0 20px rgba(225,6,0,0.5), 0 0 60px rgba(225,6,0,0.15); }
-.glow-teal { box-shadow: 0 0 20px rgba(0,210,190,0.4), 0 0 60px rgba(0,210,190,0.1); }
+.glow-yellow { box-shadow: 0 0 20px rgba(255, 215, 0,0.4), 0 0 60px rgba(255, 215, 0,0.1); }
 .glow-papaya { box-shadow: 0 0 20px rgba(255,135,0,0.4), 0 0 60px rgba(255,135,0,0.1); }
 .text-glow-red { text-shadow: 0 0 20px rgba(225,6,0,0.8), 0 0 40px rgba(225,6,0,0.4); }
-.text-glow-teal { text-shadow: 0 0 20px rgba(0,210,190,0.8), 0 0 40px rgba(0,210,190,0.3); }
+.text-glow-yellow { text-shadow: 0 0 20px rgba(255, 215, 0,0.8), 0 0 40px rgba(255, 215, 0,0.3); }
 
 /* ================================
    CYBER BORDER (clip path corners)
@@ -143,7 +143,7 @@ body {
 }
 .glitch-text::after {
   left: -2px;
-  text-shadow: 2px 0 var(--color-neon-blue);
+  text-shadow: 2px 0 var(--color-rbr-yellow);
   animation: glitch-anim2 2.5s infinite linear alternate-reverse;
   clip-path: inset(50% 0 0 0);
 }
@@ -237,7 +237,7 @@ body {
 ================================ */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(225,6,0,0.6), rgba(0,210,190,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(225,6,0,0.6), rgba(255, 215, 0,0.4), transparent);
 }
 
 /* ================================
@@ -329,4 +329,31 @@ body {
 }
 .data-stream-char {
   animation: data-stream linear infinite;
+}
+
+/* ================================
+   F1 TERMINAL "RACE EFFECT"
+================================ */
+@keyframes scanline-sweep {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+.f1-terminal-bg {
+  position: relative;
+}
+.f1-terminal-bg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(225,6,0,0.1), transparent);
+  animation: scanline-sweep 4s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes rev-pulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.3; transform: scaleY(0.8); }
+}
+.f1-rev-pulse {
+  animation: rev-pulse 0.4s ease-in-out infinite;
 }

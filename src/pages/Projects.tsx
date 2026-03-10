@@ -84,7 +84,7 @@ function ProjectCard({ project, onClick }: { project: Project; onClick: () => vo
       className={`group border relative p-6 transition-all duration-300 cyber-border cursor-pointer
         ${project.isMajor
           ? "border-[#FFD700]/40 bg-gradient-to-r from-[#001F5B]/30 to-[#1E3A5F]/20 hover:border-[#FFD700]/80 hover:from-[#001F5B]/50 hover:to-[#1E3A5F]/40"
-          : "border-white/5 bg-white/[0.02] hover:border-[var(--color-neon-blue)]/50 hover:bg-[var(--color-neon-blue)]/5"
+          : "border-white/5 bg-white/[0.02] hover:border-[var(--color-rbr-yellow)]/50 hover:bg-[var(--color-rbr-yellow)]/5"
         }`}
     >
       {/* Badge floats above card */}
@@ -114,19 +114,19 @@ function ProjectCard({ project, onClick }: { project: Project; onClick: () => vo
       />
 
       <div className="flex flex-col md:flex-row md:items-center gap-6 relative z-20">
-        <div className={`font-mono text-2xl transition-colors w-16 ${project.isMajor ? "text-[#FFD700]" : "text-[var(--color-f1-red)] group-hover:text-[var(--color-neon-blue)]"}`}>
+        <div className={`font-mono text-2xl transition-colors w-16 ${project.isMajor ? "text-[#FFD700]" : "text-[var(--color-f1-red)] group-hover:text-[var(--color-rbr-yellow)]"}`}>
           {project.position}
         </div>
         <div className="flex-1">
           <h3 className="font-display text-3xl uppercase tracking-wide mb-2 text-white flex items-center gap-3">
             {project.title}
-            <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-[var(--color-neon-blue)] transition-colors" />
+            <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-[var(--color-rbr-yellow)] transition-colors" />
           </h3>
           <p className="font-mono text-sm text-white/50 mb-4">{project.desc}</p>
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t) => (
               <span key={t} className={`font-mono text-[10px] px-2 py-1 bg-black/50 border uppercase tracking-wider
-                ${project.isMajor ? "border-[#FFD700]/30 text-[#FFD700]" : "border-white/10 text-[var(--color-neon-blue)]"}`}>
+                ${project.isMajor ? "border-[#FFD700]/30 text-[#FFD700]" : "border-white/10 text-[var(--color-rbr-yellow)]"}`}>
                 {t}
               </span>
             ))}
@@ -195,7 +195,7 @@ function ProjectDetail({ project, onBack }: { project: Project; onBack: () => vo
           <div className="flex flex-wrap gap-2 mb-10">
             {project.tech.map((t) => (
               <span key={t} className={`font-mono text-xs px-3 py-1.5 border uppercase tracking-wider
-                ${project.isMajor ? "border-[#FFD700]/40 text-[#FFD700] bg-[#FFD700]/5" : "border-[var(--color-neon-blue)]/30 text-[var(--color-neon-blue)] bg-[var(--color-neon-blue)]/5"}`}>
+                ${project.isMajor ? "border-[#FFD700]/40 text-[#FFD700] bg-[#FFD700]/5" : "border-[var(--color-rbr-yellow)]/30 text-[var(--color-rbr-yellow)] bg-[var(--color-rbr-yellow)]/5"}`}>
                 {t}
               </span>
             ))}
@@ -215,7 +215,7 @@ function ProjectDetail({ project, onBack }: { project: Project; onBack: () => vo
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {project.highlights.map((h) => (
                   <div key={h} className="flex items-center gap-3 font-mono text-sm text-white/70">
-                    <Star className={`w-3 h-3 flex-shrink-0 ${project.isMajor ? "text-[#FFD700]" : "text-[var(--color-neon-blue)]"}`} />
+                    <Star className={`w-3 h-3 flex-shrink-0 ${project.isMajor ? "text-[#FFD700]" : "text-[var(--color-rbr-yellow)]"}`} />
                     {h}
                   </div>
                 ))}
@@ -245,7 +245,7 @@ function ProjectDetail({ project, onBack }: { project: Project; onBack: () => vo
                 className={`f1-skew flex-1 flex items-center justify-center gap-3 transition-all duration-300 py-4 px-6 font-display uppercase tracking-wider text-sm
                   ${project.isMajor
                     ? "bg-[#FFD700]/10 border border-[#FFD700]/50 hover:bg-[#FFD700]/20 hover:border-[#FFD700] text-[#FFD700]"
-                    : "bg-[var(--color-neon-blue)]/10 border border-[var(--color-neon-blue)]/50 hover:bg-[var(--color-neon-blue)]/20 hover:border-[var(--color-neon-blue)] text-[var(--color-neon-blue)]"
+                    : "bg-[var(--color-rbr-yellow)]/10 border border-[var(--color-rbr-yellow)]/50 hover:bg-[var(--color-rbr-yellow)]/20 hover:border-[var(--color-rbr-yellow)] text-[var(--color-rbr-yellow)]"
                   }`}
               >
                 <div className="f1-skew-reverse flex items-center gap-3">
@@ -287,7 +287,7 @@ export default function Projects() {
           >
             {/* DRS Zone + RBR Banner */}
             <div className="absolute top-10 right-10 md:right-20 flex flex-col items-end gap-2 z-20">
-              <div className="border-2 border-[var(--color-neon-blue)] text-[var(--color-neon-blue)] px-4 py-1 font-display text-xl md:text-2xl uppercase tracking-widest f1-skew animate-pulse bg-[var(--color-neon-blue)]/10 backdrop-blur-sm shadow-[0_0_15px_rgba(0,210,190,0.4)]">
+              <div className="border-2 border-[var(--color-rbr-yellow)] text-[var(--color-rbr-yellow)] px-4 py-1 font-display text-xl md:text-2xl uppercase tracking-widest f1-skew animate-pulse bg-[var(--color-rbr-yellow)]/10 backdrop-blur-sm shadow-[0_0_15px_rgba(255, 215, 0,0.4)]">
                 DRS ZONE ENABLED
               </div>
               <motion.div
@@ -310,7 +310,7 @@ export default function Projects() {
 
             {/* Title */}
             <div className="flex items-center gap-4 mb-16">
-              <Binary className="w-8 h-8 text-[var(--color-neon-blue)]" />
+              <Binary className="w-8 h-8 text-[var(--color-rbr-yellow)]" />
               <h2 className="font-display text-4xl md:text-5xl uppercase tracking-wide text-gray-800 mix-blend-difference">
                 Exploits &amp; Engineering
               </h2>

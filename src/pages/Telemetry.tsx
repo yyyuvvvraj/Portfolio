@@ -77,26 +77,26 @@ export default function Telemetry() {
         ))}
       </motion.div>
       <div className="flex items-center gap-4 mb-12">
-        <Radio className="w-8 h-8 text-[var(--color-neon-blue)] animate-pulse" />
+        <Radio className="w-8 h-8 text-[var(--color-rbr-yellow)] animate-pulse" />
         <h2 className="font-display text-4xl md:text-5xl uppercase tracking-wide text-white">Telemetry & Threat Detection</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-        <TyreCard type="RED" color="#E95420" title="Offensive / Frontend" skills={["React", "Next.js", "Tailwind", "Pen Testing"]} desc="Aggressive grip for fast UI and vulnerability exploitation." />
+        <TyreCard type="RED" color="#E10600" title="Offensive / Frontend" skills={["React", "Next.js", "Tailwind", "Pen Testing"]} desc="Aggressive grip for fast UI and vulnerability exploitation." />
         <TyreCard type="PURPLE" color="#77216F" title="Full-Stack / API" skills={["Node.js", "Express", "GraphQL", "AppSec"]} desc="Balanced performance bridging the gap between systems." />
         <TyreCard type="BLUE" color="#3a80ca" title="Defensive / DevOps" skills={["Docker", "AWS", "Cryptography", "Zero Trust"]} desc="Durable infrastructure and hardened security postures." />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         <MetricCard label="ENCRYPTION" value="256" unit="bit" desc="AES Standard" color="#3a80ca" />
-        <MetricCard label="LATENCY" value="12" unit="ms" desc="Network Ping" color="#E95420" />
+        <MetricCard label="LATENCY" value="12" unit="ms" desc="Network Ping" color="#E10600" />
         <MetricCard label="UPTIME" value="99.9" unit="%" desc="System Reliability" color="#87d23f" />
         <MetricCard label="BREACHES" value="0" unit="" desc="Incidents Detected" color="#3a80ca" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="col-span-1 lg:col-span-2 glass-premium-card p-6 relative group overflow-hidden bg-black/40 backdrop-blur-md border border-white/10">
-           <div className="absolute top-0 right-0 w-32 h-32 bg-[#E95420]/5 blur-3xl pointer-events-none group-hover:bg-[#E95420]/10 transition-colors" />
+           <div className="absolute top-0 right-0 w-32 h-32 bg-[#E10600]/5 blur-3xl pointer-events-none group-hover:bg-[#E10600]/10 transition-colors" />
            <h3 className="font-display text-2xl uppercase tracking-wide mb-4 text-white">Network Architecture</h3>
            <p className="font-mono text-sm text-white/60 mb-8 max-w-lg leading-relaxed">
              All inbound traffic is routed through dual-layered WAFs. Critical system endpoints are isolated in secure DMZs to prevent lateral movement during active exploitation attempts.

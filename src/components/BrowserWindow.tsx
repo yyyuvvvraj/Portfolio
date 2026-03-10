@@ -28,7 +28,7 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
         
         {/* Active Tab */}
         <div className="bg-zinc-800 h-8 min-w-[200px] max-w-[240px] rounded-t-lg flex items-center px-3 gap-2 relative group flex-1 pb-1 border-t border-l border-r border-zinc-700/50">
-          <div className="w-4 h-4 rounded-sm bg-[#E95420] flex items-center justify-center text-[8px] text-white font-bold shadow-sm">YD</div>
+          <div className="w-4 h-4 rounded-sm bg-[#E10600] flex items-center justify-center text-[8px] text-white font-bold shadow-sm">YD</div>
           <span className="text-xs truncate text-zinc-100 flex-1 select-none font-medium">{title}</span>
           <X className="w-4 h-4 text-zinc-400 hover:text-zinc-100 cursor-pointer rounded-full hover:bg-zinc-600/50 p-0.5 transition-colors" />
           
@@ -49,12 +49,12 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
           </button>
           <button className="p-1.5 cursor-not-allowed opacity-30 text-zinc-500 rounded-md"><ArrowRight className="w-4 h-4" /></button>
           <button onClick={handleRefresh} className="p-1.5 hover:bg-zinc-700 rounded-md transition-colors text-zinc-300 ml-1">
-            <RotateCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-[#E95420]' : ''}`} />
+            <RotateCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-[#E10600]' : ''}`} />
           </button>
         </div>
 
         {/* Omnibox / URL Bar */}
-        <div className="flex-1 bg-zinc-950/80 hover:bg-zinc-900 transition-colors h-8 rounded-md flex items-center px-3 gap-2 border border-zinc-700/50 focus-within:border-[#E95420]/50 focus-within:ring-1 focus-within:ring-[#E95420]/30 shadow-inner">
+        <div className="flex-1 bg-zinc-950/80 hover:bg-zinc-900 transition-colors h-8 rounded-md flex items-center px-3 gap-2 border border-zinc-700/50 focus-within:border-[#E10600]/50 focus-within:ring-1 focus-within:ring-[#E10600]/30 shadow-inner">
           <Lock className="w-3.5 h-3.5 text-zinc-500" />
           <input 
             type="text" 
@@ -68,7 +68,7 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
 
         <div className="flex items-center gap-2 pr-1">
           <button className="w-7 h-7 hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-indigo-500 to-[#E95420] text-[8px] flex items-center justify-center text-white border border-zinc-600">Me</div>
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-indigo-500 to-[#E10600] text-[8px] flex items-center justify-center text-white border border-zinc-600">Me</div>
           </button>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
       <div className="flex-1 overflow-auto bg-zinc-950 relative">
         {isRefreshing && (
           <div className="absolute inset-0 bg-zinc-950/60 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-all">
-             <div className="w-8 h-8 border-2 border-[#E95420] border-t-transparent rounded-full animate-spin"></div>
+             <div className="w-8 h-8 border-2 border-[#E10600] border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
         <div className={`h-full transition-opacity duration-300 ${isRefreshing ? 'opacity-30' : 'opacity-100'}`}>

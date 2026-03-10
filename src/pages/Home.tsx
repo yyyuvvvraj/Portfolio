@@ -51,7 +51,9 @@ export default function Home() {
           <div className="h-[3px] w-3 bg-[#FFD700]" />
         </motion.div>
       </div>
-      <F1CarScene />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <F1CarScene />
+      </div>
       <motion.div 
         style={{ y }}
         className="absolute inset-0 opacity-20 telemetry-grid pointer-events-none"
@@ -137,27 +139,6 @@ export default function Home() {
           className="w-full mt-4"
         >
           <Terminal />
-        </motion.div>
-
-        {/* RBR Verstappen Stats Strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.0 }}
-          className="w-full mt-6 flex flex-wrap gap-px overflow-hidden rounded-sm"
-        >
-          {[
-            { label: "DRIVER", value: "VER", sub: "Max Verstappen" },
-            { label: "TEAM", value: "RBR", sub: "Oracle Red Bull Racing" },
-            { label: "CHAMPIONSHIPS", value: "4×", sub: "World Champion" },
-            { label: "GRID POSITION", value: "#1", sub: "Permanent Number" },
-          ].map((stat) => (
-            <div key={stat.label} className="flex-1 min-w-[120px] bg-[#001F5B]/20 border border-[#001F5B]/40 hover:border-[#FFD700]/40 hover:bg-[#001F5B]/30 transition-colors p-3 text-center">
-              <div className="font-mono text-[9px] text-white/30 uppercase tracking-widest mb-1">{stat.label}</div>
-              <div className="font-display text-2xl text-[#FFD700] leading-none">{stat.value}</div>
-              <div className="font-mono text-[9px] text-white/40 mt-1">{stat.sub}</div>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>

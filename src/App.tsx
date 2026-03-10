@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// Triggering Vite HMR Reload for Windows Casing issues
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import UbuntuLayout from "./components/UbuntuLayout";
 import InitialBootScreen from "./components/InitialBootScreen";
 import Home from "./pages/Home";

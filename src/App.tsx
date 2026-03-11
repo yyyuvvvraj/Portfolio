@@ -8,6 +8,7 @@ import Projects from "./pages/Projects";
 import Logs from "./pages/Logs";
 import Contact from "./pages/Contact";
 import Downloads from "./pages/Downloads";
+import Game from "./pages/Game";
 import { GameProvider } from "./context/GameContext";
 
 export default function App() {
@@ -15,7 +16,9 @@ export default function App() {
 
   return (
     <>
-      {bootSequenceActive && <InitialBootScreen onComplete={() => setBootSequenceActive(false)} />}
+      {bootSequenceActive && (
+        <InitialBootScreen onComplete={() => setBootSequenceActive(false)} />
+      )}
       <GameProvider>
         <Router>
           <Routes>
@@ -26,6 +29,7 @@ export default function App() {
               <Route path="logs" element={<Logs />} />
               <Route path="contact" element={<Contact />} />
               <Route path="downloads" element={<Downloads />} />
+              <Route path="game" element={<Game />} />
             </Route>
           </Routes>
         </Router>

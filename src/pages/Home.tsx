@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { Link } from "react-router-dom";
 import { Github, Linkedin, ShieldAlert, Flame, Download } from "lucide-react";
+import { useEffect } from "react";
 import Terminal from "../components/Terminal";
 import F1CarScene from "../components/F1CarScene";
 
@@ -10,10 +11,14 @@ function StartingLights() {
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="flex flex-col gap-2">
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`} />
+            <div
+              className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`}
+            />
           </div>
           <div className="w-6 h-6 rounded-full bg-[#222] border-2 border-black shadow-inner relative">
-            <div className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`} />
+            <div
+              className={`absolute inset-0 rounded-full bg-[#E10600] f1-light-${i}`}
+            />
           </div>
         </div>
       ))}
@@ -25,8 +30,15 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <section id="driver" className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden py-16">
+    <section
+      id="driver"
+      className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden py-16"
+    >
       {/* RBR Championship Banner — top right */}
       <div className="absolute top-4 right-4 z-30 flex flex-col items-end gap-1 pointer-events-none">
         <motion.div
@@ -37,8 +49,12 @@ export default function Home() {
         >
           <div className="f1-skew-reverse flex items-center gap-2">
             <Flame className="w-3 h-3 text-[#E10600]" />
-            <span className="font-display text-[#FFD700] text-xs tracking-widest">ORACLE RED BULL RACING</span>
-            <span className="font-display text-white text-base leading-none">#1</span>
+            <span className="font-display text-[#FFD700] text-xs tracking-widest">
+              ORACLE RED BULL RACING
+            </span>
+            <span className="font-display text-white text-base leading-none">
+              #1
+            </span>
           </div>
         </motion.div>
         <motion.div
@@ -55,14 +71,14 @@ export default function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <F1CarScene />
       </div>
-      <motion.div 
+      <motion.div
         style={{ y }}
         className="absolute inset-0 opacity-20 telemetry-grid pointer-events-none"
       />
       <div className="absolute top-0 right-0 w-1/3 h-full checkered-pattern opacity-[0.03] pointer-events-none mix-blend-overlay" />
       <div className="absolute -top-32 right-1/4 w-8 h-[150%] bg-[#E10600] opacity-10 f1-skew-reverse pointer-events-none blur-sm" />
       <div className="absolute -top-32 right-[28%] w-2 h-[150%] bg-[#E10600] opacity-20 f1-skew-reverse pointer-events-none blur-[1px]" />
-      
+
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col gap-12 pt-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -72,26 +88,34 @@ export default function Home() {
           >
             <StartingLights />
             <div className="flex items-center gap-4 mb-6">
-              <span className="font-mono text-[#E10600] text-lg animate-pulse">● REC</span>
+              <span className="font-mono text-[#E10600] text-lg animate-pulse">
+                ● REC
+              </span>
               <div className="h-[1px] w-12 bg-[#E10600]" />
-              <span className="font-mono text-white/50 uppercase tracking-widest text-sm">Lead Driver & Security Eng</span>
+              <span className="font-mono text-white/50 uppercase tracking-widest text-sm">
+                Lead Driver & Security Eng
+              </span>
             </div>
-            
+
             <h1 className="font-display text-7xl md:text-9xl uppercase leading-[0.85] tracking-tight mb-6">
-              <span className="glitch-text" data-text="Yuvraj">Yuvraj</span><br />
+              <span className="glitch-text" data-text="Yuvraj">
+                Yuvraj
+              </span>
+              <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">
                 Deshmukh
               </span>
             </h1>
-            
+
             <p className="font-mono text-white/70 max-w-md mb-8 leading-relaxed border-l-2 border-[#E10600] pl-4">
-              Full-stack engineer engineered for high performance. Merging the speed of F1 telemetry with the precision of modern cybersecurity.
+              Full-stack engineer engineered for high performance. Merging the
+              speed of F1 telemetry with the precision of modern cybersecurity.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="https://github.com/yyyuvvvraj" 
-                target="_blank" 
+              <a
+                href="https://github.com/yyyuvvvraj"
+                target="_blank"
                 rel="noreferrer"
                 className="f1-skew bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 hover:bg-[#E10600] hover:text-white transition-all duration-300 group text-center shadow-[0_0_20px_rgba(255,255,255,0.1)] rounded-tl-lg rounded-br-lg"
               >
@@ -100,9 +124,9 @@ export default function Home() {
                   <span>GitHub_Access</span>
                 </div>
               </a>
-              <a 
-                href="https://linkedin.com/in/yuvraj-rajni-sachin-deshmukh-116627283/" 
-                target="_blank" 
+              <a
+                href="https://linkedin.com/in/yuvraj-rajni-sachin-deshmukh-116627283/"
+                target="_blank"
                 rel="noreferrer"
                 className="f1-skew border border-[var(--color-rbr-yellow)]/50 px-8 py-4 hover:bg-[var(--color-rbr-yellow)]/10 hover:border-[var(--color-rbr-yellow)] transition-all duration-300 text-center"
               >
@@ -111,7 +135,7 @@ export default function Home() {
                   <span>LinkedIn_Node</span>
                 </div>
               </a>
-              <Link 
+              <Link
                 to="/downloads"
                 className="f1-skew border border-[#87d23f]/50 bg-[#87d23f]/10 px-8 py-4 hover:bg-[#87d23f] hover:text-black transition-all duration-300 text-center text-[#87d23f] shadow-[0_0_15px_rgba(135,210,63,0.15)] rounded-tr-lg rounded-bl-lg group"
               >
@@ -122,7 +146,7 @@ export default function Home() {
               </Link>
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -135,7 +159,9 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-tr from-[#E10600]/5 to-[var(--color-rbr-yellow)]/5 rounded-full" />
               <div className="text-center relative z-10">
                 <ShieldAlert className="w-12 h-12 mx-auto text-[#E10600] mb-2 opacity-80" />
-                <div className="font-mono text-[var(--color-rbr-yellow)] text-xs bg-[var(--color-carbon)] px-3 py-1 border border-[var(--color-rbr-yellow)]/30 shadow-[0_0_10px_var(--color-rbr-yellow)]">SYS: SECURE</div>
+                <div className="font-mono text-[var(--color-rbr-yellow)] text-xs bg-[var(--color-carbon)] px-3 py-1 border border-[var(--color-rbr-yellow)]/30 shadow-[0_0_10px_var(--color-rbr-yellow)]">
+                  SYS: SECURE
+                </div>
               </div>
             </div>
           </motion.div>

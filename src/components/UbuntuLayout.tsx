@@ -46,9 +46,9 @@ function UbuntuTopBar() {
   return (
     <div className="fixed top-0 left-0 w-full h-7 bg-black/95 backdrop-blur-md z-50 flex items-center justify-between px-4 text-white font-ubuntu text-13px shadow-md border-b border-white/5">
       <div className="flex items-center gap-4 h-full">
-        <div className="hover:bg-white/10 h-full px-2 flex items-center cursor-pointer transition-colors rounded-sm text-[#E10600] font-bold">Activities</div>
+        <div className="hover:bg-white/10 h-full px-2 flex items-center cursor-pointer transition-colors rounded-sm text-[#E10600] font-bold md:block hidden">Activities</div>
         {isGameMode && (
-          <div className="flex items-center gap-2 h-full px-2 text-[#87d23f] font-mono whitespace-nowrap hidden sm:flex">
+          <div className="flex items-center gap-2 h-full px-2 text-[#87d23f] font-mono whitespace-nowrap hidden lg:flex">
             <span>SEC_CLEARANCE_SCORE:</span>
             <span className="font-bold border border-[#87d23f]/30 px-1 bg-[#87d23f]/10">{score.toString().padStart(4, '0')}</span>
           </div>
@@ -75,7 +75,7 @@ function UbuntuTopBar() {
 
         {/* Dropdown Menu */}
         {isPanelOpen && (
-          <div className="absolute top-full mt-1 right-0 w-80 bg-[#1e1e1ede] backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/10 p-4 text-white font-ubuntu cursor-default flex flex-col gap-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute top-full mt-1 right-0 w-[calc(100vw-1rem)] sm:w-80 bg-[#1e1e1ede] backdrop-blur-3xl rounded-2xl shadow-2xl border border-white/10 p-4 text-white font-ubuntu cursor-default flex flex-col gap-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200 translate-x-[-0.5rem] sm:translate-x-0" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-4">
                <button onClick={toggleVolume} className={`p-2 rounded-full transition-colors ${!isMuted ? 'bg-[#E10600] text-white hover:bg-[#E10600]/80' : 'bg-white/10 text-white/70 hover:bg-white/20'}`}>
                  {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
@@ -134,8 +134,8 @@ export default function UbuntuLayout() {
       {/* Global Scanlines Overlay */}
       <div className="fixed inset-0 scanlines z-50 pointer-events-none opacity-20 mix-blend-overlay"></div>
 
-      <div className="pl-16 pt-7 min-h-screen flex flex-col">
-        <div className="flex-1 w-full bg-[#1e1e1e] relative overflow-hidden shadow-inner border border-white/5 m-4 rounded-xl border-[#5e2750]">
+      <div className="pl-0 md:pl-16 pb-16 md:pb-0 pt-7 min-h-screen flex flex-col">
+        <div className="flex-1 w-full bg-[#1e1e1e] relative overflow-hidden shadow-inner border border-white/5 m-2 sm:m-4 rounded-xl border-[#5e2750]">
           {/* Faux OS Window Header for the main content area */}
           <div className="h-8 bg-[#300a24] border-b border-[#5e2750] flex items-center px-4 sticky top-0 z-30">
              <div className="flex gap-2 w-full max-w-[60px]">

@@ -394,7 +394,7 @@ export default function UbuntuDock() {
   ];
 
   return (
-    <div className="fixed left-0 top-7 bottom-0 w-16 bg-[#300a24]/80 backdrop-blur-md border-r border-[#E10600]/30 flex flex-col items-center py-4 gap-4 z-40">
+    <div className="fixed left-0 md:top-7 bottom-0 w-full md:w-16 h-16 md:h-[calc(100vh-1.75rem)] bg-[#300a24]/80 backdrop-blur-md border-t md:border-t-0 md:border-r border-[#E10600]/30 flex flex-row md:flex-col items-center justify-center md:justify-start py-2 md:py-4 px-4 md:px-0 gap-2 sm:gap-4 z-40">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
         // Normalize path to match context route keys

@@ -97,7 +97,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1 className="font-display text-7xl md:text-9xl uppercase leading-[0.85] tracking-tight mb-6">
+            <h1 className="font-display text-5xl xs:text-7xl md:text-9xl uppercase leading-[0.85] tracking-tight mb-6">
               <span className="glitch-text" data-text="Yuvraj">
                 Yuvraj
               </span>

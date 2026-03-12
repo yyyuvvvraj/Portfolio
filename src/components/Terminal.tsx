@@ -72,8 +72,8 @@ export default function Terminal() {
         output = (
           <div className="text-gray-300">
             <div>Available commands:</div>
-            <div className="ml-4 mt-1">
-              <div className="grid grid-cols-2 gap-2 max-w-[20rem] sm:max-w-lg">
+            <div className="ml-4 mt-1 overflow-x-hidden">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-1 max-w-[20rem] sm:max-w-lg">
                 <span className="text-[var(--color-rbr-yellow)]">whoami</span><span>Print current user</span>
                 <span className="text-[var(--color-rbr-yellow)]">ls</span><span>List directory contents</span>
                 <span className="text-[var(--color-rbr-yellow)]">tree</span><span>List directory tree</span>
@@ -463,7 +463,7 @@ date: ${new Date().toUTCString()}
 
   return (
     <div 
-      className="font-mono text-xs md:text-sm bg-black/90 backdrop-blur-md text-white p-4 rounded-xl h-64 md:h-80 overflow-y-auto w-full relative shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/10 flex-shrink-0 f1-terminal-bg"
+      className="font-mono text-[10px] xs:text-xs md:text-sm bg-black/90 backdrop-blur-md text-white p-3 md:p-4 rounded-xl h-[400px] md:h-80 overflow-y-auto w-full relative shadow-[0_0_30px_rgba(0,0,0,0.8)] border border-white/10 flex-shrink-0 f1-terminal-bg"
       onClick={() => inputRef.current?.focus()}
       ref={containerRef}
     >

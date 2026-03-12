@@ -20,16 +20,16 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
     <div className="w-full h-full flex flex-col bg-zinc-950 text-zinc-200 font-sans rounded-xl overflow-hidden shadow-2xl border border-zinc-800/50 relative z-20">
       {/* OS Window Header / Tab Bar */}
       <div className="bg-zinc-900 h-10 flex items-end px-2 gap-2 pt-2 border-b border-zinc-800">
-        <div className="flex gap-2 mb-2 px-3 items-center opacity-80">
+        <div className="flex gap-1.5 sm:gap-2 mb-2 px-2 sm:px-3 items-center opacity-80">
            <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]"></div>
            <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]"></div>
            <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]"></div>
         </div>
         
         {/* Active Tab */}
-        <div className="bg-zinc-800 h-8 min-w-[200px] max-w-[240px] rounded-t-lg flex items-center px-3 gap-2 relative group flex-1 pb-1 border-t border-l border-r border-zinc-700/50">
-          <div className="w-4 h-4 rounded-sm bg-[#E10600] flex items-center justify-center text-[8px] text-white font-bold shadow-sm">YD</div>
-          <span className="text-xs truncate text-zinc-100 flex-1 select-none font-medium">{title}</span>
+        <div className="bg-zinc-800 h-8 min-w-[120px] sm:min-w-[200px] max-w-[240px] rounded-t-lg flex items-center px-2 sm:px-3 gap-2 relative group flex-1 pb-1 border-t border-l border-r border-zinc-700/50">
+          <div className="w-4 h-4 rounded-sm bg-[#E10600] flex items-center justify-center text-[8px] text-white font-bold shadow-sm flex-shrink-0">YD</div>
+          <span className="text-xs truncate text-zinc-100 flex-1 select-none font-medium hidden xs:block">{title}</span>
           <X className="w-4 h-4 text-zinc-400 hover:text-zinc-100 cursor-pointer rounded-full hover:bg-zinc-600/50 p-0.5 transition-colors" />
           
           {/* Tab SVG corners for realistic look */}
@@ -39,7 +39,7 @@ export default function BrowserWindow({ children, url = "https://yuvraj.dev/proj
       </div>
 
       {/* URL Bar Area */}
-      <div className="bg-zinc-800 h-12 flex items-center px-3 gap-4 border-b border-zinc-900 shadow-sm">
+      <div className="bg-zinc-800 h-10 sm:h-12 flex items-center px-2 sm:px-3 gap-2 sm:gap-4 border-b border-zinc-900 shadow-sm">
         <div className="flex items-center gap-1 text-zinc-400">
           <button 
             onClick={onBack}
